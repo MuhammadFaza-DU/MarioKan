@@ -77,24 +77,10 @@ registered together so they stay aligned.
 
 ## Architecture
 
-Module breakdown of the design. See [Project status](#project-status) for what
-is actually implemented.
+![MarioKan architecture](docs/diagram/arsitektur.svg)
 
-```
-                    ┌─────────────── clk_gen (MMCM) ───────────────┐
-                    │                                              │
- PS/2 ──► ps2_rx ──► kbd_decoder ─┐                                  │
-      └─► ps2_tx ──► mouse_decoder ┼─► input_mux ──► game_ctrl (FSM) │
- switches / buttons ──────────────┘                      │          │
-                                                          ▼          │
-                          player · enemy · items · collision · HUD   │
-                                          │                          │
-                              tilemap / sprite ROM / palette         │
-                                          ▼                          │
-                              renderer ◄── vga_timing ◄──────────────┘
-                                          │
-                                     RGB444 ──► VGA
-```
+*Block diagram of the design. See [Project status](#project-status) for what is
+actually implemented.*
 
 | Module | Responsibility |
 |---|---|
@@ -108,6 +94,12 @@ is actually implemented.
 | `game_ctrl` | Main game state machine |
 | `player`, `enemy_goomba`, `items`, `collision` | Physics, enemy control, items, AABB/tile collision |
 | `hud_text`, `seg7_mux` | On-screen HUD and 7-segment debug output |
+
+The diagram is generated from source, not hand-drawn:
+
+```powershell
+python tools/make_architecture.py   # writes docs/diagram/arsitektur.svg
+```
 
 ## Project status
 
@@ -142,9 +134,13 @@ constraints/        Basys 3 XDC                      (in progress)
 sim/                VHDL testbenches                 (in progress)
 tools/
   build.tcl         Vivado batch build script
+  make_architecture.py   Generates the architecture diagram (SVG)
+  make_diagram.py        Generates the proposal block diagram (PNG)
+  make_proposal.py       Generates the proposal document (DOCX)
 docs/
   PRD.md            Specification — authoritative requirements
   checkpoint.md     Work log and current status
+  diagram/          Generated diagrams
   proposal/         Project proposal and diagrams
   brief/            Source material and references
 ```
