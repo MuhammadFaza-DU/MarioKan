@@ -141,9 +141,10 @@ docs/
   PRD.md            Specification — authoritative requirements
   checkpoint.md     Work log and current status
   diagram/          Generated diagrams
-  proposal/         Project proposal and diagrams
-  brief/            Source material and references
 ```
+
+Local-only material (not tracked, excluded via `.gitignore`): `docs/brief/`,
+`docs/rubrik.md`, `docs/proposal/`.
 
 `build.tcl` expects `src/` to exist and to contain at least one `.vhd` file;
 it exits with an explicit message otherwise. As of now `src/` is still empty.

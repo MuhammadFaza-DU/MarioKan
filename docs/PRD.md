@@ -52,7 +52,8 @@ layar, sehingga beban komputasi jatuh drastis tanpa mengorbankan ketajaman.
 
 Proyek ini adalah tugas akhir mata kuliah **Sistem Digital Lanjut**, dikerjakan
 bertahap. Tahap yang sedang berjalan: **Proyek 1 — Usulan Judul**
-(sumber: `docs/brief/proyek-1.pdf`, rubrik: `docs/rubrik.md`).
+(sumber: `docs/brief/proyek-1.pdf`, rubrik: `docs/rubrik.md` — keduanya
+dokumen **lokal**, tidak di-commit ke repo publik).
 
 | Deliverable | Isi | Status |
 |---|---|---|
@@ -527,8 +528,8 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 | ID | Pertanyaan | Jawaban | Dampak ke PRD |
 |---|---|---|---|
 | Q-1 | Spesifikasi alat | **Basys 3, Xilinx Artix-7 `XC7A35T-1CPG236C`** | §4.1 final, target tidak berubah |
-| Q-2 | Rubrik penilaian | Diperoleh → `docs/rubrik.md` | Prioritas mengikuti bobot; kelayakan 30% → bukti `SYN` masuk proposal |
-| Q-3 | Ketentuan tugas akhir | `docs/brief/proyek-1.pdf`; tahap 1 = **usulan judul** | Ditambah §1.1 + deliverable D0 |
+| Q-2 | Rubrik penilaian | Diperoleh → `docs/rubrik.md` (lokal) | Prioritas mengikuti bobot; kelayakan 30% → bukti `SYN` masuk proposal |
+| Q-3 | Ketentuan tugas akhir | `docs/brief/proyek-1.pdf` (lokal); tahap 1 = **usulan judul** | Ditambah §1.1 + deliverable D0 |
 | Q-4 | Konverter VGA→HDMI | Belum bisa dicek; **diuji di fase 2** dengan pola uji | R-2 tetap terbuka, tidak memblokir fase 0–1 |
 | Q-5 | USB hub | Belum diketahui | Mouse tetap fitur `4b` opsional |
 | Q-6 | Batas waktu | **Maksimum 2 bulan**, target lebih cepat, kualitas utama | Roadmap §5.2 penuh, gate per fase |

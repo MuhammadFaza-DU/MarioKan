@@ -21,6 +21,11 @@ vivado_pid*.str
 .tmp/
 reference/
 
+# Dokumen akademik — disimpan lokal saja, tidak masuk repo publik
+docs/rubrik.md
+docs/brief/
+docs/proposal/
+
 # Python
 __pycache__/
 *.pyc
