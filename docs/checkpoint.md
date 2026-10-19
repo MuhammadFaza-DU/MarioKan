@@ -15,6 +15,46 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan 5) — Audit lingkup kerja: git terisolasi, tidak ada file luar tersentuh
+
+**Latar**
+Pemilik menanyakan dua hal yang perlu dibuktikan, bukan diyakinkan:
+(a) apakah ada dokumen akademik di luar folder project yang ikut terhapus,
+(b) apakah `.git` menyebar ke folder lain.
+
+**Hasil audit (semua terverifikasi)**
+
+| Pemeriksaan | Hasil |
+|---|---|
+| `.git` di folder project | **ADA** — `...\Project-Terakhir-SDL\.git`, HEAD `refs/heads/main` |
+| `.git` di folder induk (`VHDL`, `Project dan SourceCode`, `D:\Progamming`, `D:\`) | **TIDAK ADA** sama sekali |
+| File di luar project yang terhapus | **TIDAK ADA** |
+| `C:\Users\...\Downloads\Tugas 2 Conditional Programming_*.pdf` | **UTUH** |
+| `WEBB\gamein`, `Aplikasi\Tazk`, `MATLAB`, `Lomba`, `Tes model`, `BEBAS CAMPURAN`, `Project C` | **SEMUA ADA** |
+| Commit terakhir repo lain | Tazk `1a682e2` (2026-08-24), gamein `e55ddc2` (2026-10-19), Project_1 `1223b39` (2026-10-10) → **tidak berubah**, membuktikan tidak tersentuh |
+| Operasi hapus sepanjang sesi | Hanya 3, semuanya di dalam project: `Remove-Item` PDF proposal (sebelum regenerate), `Move-Item` log Vivado ke `.tmp/`, `Rename-Item` folder project (gagal, ditunda) |
+| Cakupan `git filter-branch --all` | Hanya ref **repo ini**: `refs/heads/main`, `refs/remotes/origin/main`, `refs/tags/stable-2026-10-19-v1`. Bukan repo lain di disk |
+
+**Catatan teknis penting**
+- `git rm -r --cached` hanya mengeluarkan dari index, **tidak** menghapus dari disk.
+  Yang menghapus adalah efek samping `reset --hard` di akhir `filter-branch`,
+  dan itu **terbatas di dalam repo ini**. Sudah dipulihkan penuh dari
+  `.tmp/backup-akademik/`.
+- Semua perintah git dijalankan dengan working directory = folder project ini;
+  tidak pernah `cd` ke folder lain untuk urusan git.
+
+**Status akhir**
+- 19 file di project: 12 ter-track (publik) + 7 lokal (rubrik, brief ×2,
+  proposal ×2, diagram, backup) — semuanya ada dan ukurannya sesuai.
+- `git status` bersih → dokumen lokal tidak ter-track.
+
+**Berikutnya**
+- Menunggu keputusan: `tools/make_proposal.py` tetap publik atau dikeluarkan.
+- Menunggu: judul disepakati kelompok, deadline BRONE, model konverter
+  VGA→HDMI → lalu fase 1.
+
+---
+
 ## 2026-10-19 (lanjutan 4) — Repo dijadikan PUBLIK + riwayat dibersihkan
 
 **Dikerjakan**
