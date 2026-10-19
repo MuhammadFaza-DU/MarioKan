@@ -15,6 +15,55 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan) — Proposal Proyek 1 (DOCX + PDF)
+
+**Dikerjakan**
+- Menyerap `docs/brief/proyek-1.pdf` → transkripsi terstruktur di `docs/rubrik.md`.
+- Merapikan struktur dokumen: dokumen mentah dipindah ke `docs/brief/`.
+- Menulis **proposal Proyek 1** sesuai 4 poin wajib dosen (judul, tujuan & fungsi,
+  gambaran cara kerja, rencana implementasi).
+- Membuat diagram blok sistem (PNG) via `tools/make_diagram.py`.
+- Generator dokumen: `tools/make_proposal.py` (python-docx).
+- Output: `docs/proposal/Proposal-Proyek-1-MarioKan.docx` + `.pdf`.
+
+**Bukti**
+- DOCX tersimpan, dikonversi ke PDF via Word COM: **10 halaman**, 2.455 kata.
+- Teks terverifikasi lewat OCR PDF: cover tanpa nomor halaman, tidak ada baris
+  tabel terpotong antar halaman, seluruh tabel & daftar pustaka tercetak utuh.
+- Diagram terverifikasi lewat OCR PNG: 16 baris teks, confidence 0,98.
+
+**Temuan penting**
+- `websearch` mengembalikan **0 hasil**; Bing/Google/DuckDuckGo via fetch
+  mengembalikan konten tidak relevan (GameHouse, Zhihu). Riset format proposal
+  karena itu **tidak memakai sumber web** — disusun dari struktur akademik umum
+  + penalaran atas rubrik. Ini keterbatasan yang harus diketahui.
+- Referensi yang **terverifikasi aksesnya**: Digilent `Basys-3-Master.xdc`
+  (isi file dibaca, pin cocok) dan README repo `FPGA-Mario` (penulis, toolchain).
+  Referensi lain (UG472, UG473, UG901, IEEE 1076, CEA-861, Chapweske) adalah
+  dokumen kanonik; URL AMD hanya memuat aplikasi JS saat diakses.
+
+**Keputusan**
+- Struktur proposal: **ikut persis 4 poin dosen** (bukan BAB I–III), atas
+  permintaan pemilik.
+- Judul dipakai: "MarioKan: Implementasi Game Platformer Bergaya Super Mario
+  Bros. pada FPGA Basys 3 Menggunakan VHDL" — masih menunggu diskusi kelompok.
+- Audio & mouse ditulis sebagai fitur dengan **catatan status jujur**
+  (pengembangan lanjutan / opsional menunggu verifikasi).
+- Bukti `SYN` (MMCM 148,4375 MHz, WNS +4,041 ns, bitstream) dimasukkan ke
+  subbab 4.6 sebagai bukti kelayakan — mengangkat komponen rubrik terbesar (30%).
+
+**Belum diverifikasi**
+- Judul belum disepakati kelompok; daftar judul kelompok lain tidak bisa diakses.
+- Tanggal pengumpulan proposal dari dosen: pemilik menyebut 23 Oktober 2026 23:59
+  (perlu konfirmasi ulang di BRONE).
+- Format resmi proposal tidak diberikan dosen; struktur mengikuti 4 poin wajib.
+
+**Berikutnya**
+- Review proposal oleh pemilik + kelompok → revisi bila perlu → unggah via BRONE.
+- Setelah judul disetujui: mulai fase 1 (analisis modul repo acuan).
+
+---
+
 ## 2026-10-19 — Fondasi: verifikasi toolchain & keputusan awal
 
 **Dikerjakan**
