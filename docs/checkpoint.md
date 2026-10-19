@@ -15,6 +15,52 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan 2) — Repo GitHub: private, contributor, batasan platform
+
+**Dikerjakan**
+- Repo dibuat dan dipublikasikan: **https://github.com/MuhammadFaza-DU/MarioKan**
+- Visibilitas: **PRIVATE**.
+- `CONTRIBUTING.md` diperluas: pembagian peran, alur branch/PR, aturan bukti,
+  dan perintah mengundang collaborator.
+
+**Bukti**
+- `gh repo view MuhammadFaza-DU/MarioKan --json visibility` → `"PRIVATE"`
+- `gh api repos/MuhammadFaza-DU/MarioKan --jq .private` → `true`
+  (dua sumber independen, sepakat)
+- `gh api .../collaborators --jq '.[].login'` → hanya `MuhammadFaza-DU`
+- `gh api .../invitations` → kosong (belum ada undangan terkirim)
+- `git ls-files` → 15 file; **tidak ada** bitstream, log Vivado, `.tmp/`,
+  atau kredensial yang ter-commit.
+
+**Gagal / tidak bisa (penting)**
+- **Branch protection TIDAK dapat dipasang.** Dua jalur dicoba, dua-duanya
+  ditolak **HTTP 403** dengan pesan "Upgrade to GitHub Pro or make this
+  repository public to enable this feature":
+  1. `PUT /branches/main/protection` (classic branch protection)
+  2. `POST /rulesets` (repository rulesets)
+- Artinya: aturan "jangan push langsung ke `main`" **hanya konvensi tertulis**,
+  bukan paksaan teknis. Semua collaborator secara teknis tetap bisa push ke
+  `main`. Ini dicatat juga di `CONTRIBUTING.md` agar tidak menyesatkan.
+- Opsi untuk memaksakan: (a) upgrade akun ke **GitHub Pro**, atau (b) jadikan
+  repo **publik** setelah tugas selesai.
+
+**Keputusan**
+- Undangan collaborator **dilakukan pemilik sendiri** (bukan oleh agent),
+  memakai perintah `gh api --method PUT .../collaborators/<USERNAME> -f permission=push`
+  yang sudah ditulis di `CONTRIBUTING.md`.
+- Hak yang diberikan: **`push`** (bukan `admin`) → tidak bisa menghapus repo
+  atau mengubah setting.
+
+**Belum diverifikasi**
+- Username GitHub kelima anggota belum diketahui → **belum ada yang diundang**.
+- Belum ada Pull Request / branch dari kontributor (belum ada kontributor).
+
+**Berikutnya**
+- Pemilik mengundang 5 anggota dengan akses `push`, lalu mereka menerima
+  undangan lewat email / halaman invitations.
+
+---
+
 ## 2026-10-19 (lanjutan) — Proposal Proyek 1 (DOCX + PDF)
 
 **Dikerjakan**
