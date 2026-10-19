@@ -15,6 +15,54 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan 4) — Repo dijadikan PUBLIK + riwayat dibersihkan
+
+**Dikerjakan**
+- Repo diubah dari private → **PUBLIC** atas permintaan pemilik.
+- Dokumen akademik dikeluarkan dari repo dan dari **seluruh riwayat git**:
+  `docs/rubrik.md`, `docs/brief/`, `docs/proposal/`, dan `Ide-awal.md` (nama
+  awal sebelum dipindah). Ditambahkan ke `.gitignore` (lokal-only).
+- Riwayat ditulis ulang dengan `git filter-branch --index-filter` (10 commit),
+  lalu `refs/original` dihapus, reflog di-expire, `git gc --prune=now`.
+- Tag `stable-2026-10-19-v1` dibuat ulang di riwayat baru (menunjuk `0b76a83`).
+- Proposal diregenerasi dengan **7 anggota** (tambah Irwanto Saputra Husni,
+  255150300111001).
+
+**Bukti**
+- `gh repo view --json visibility` → `"PUBLIC"`, `isPrivate: false`
+- Akses **anonim tanpa login**: `HTTP 200 | private=False | visibility=public`
+- Tree publik (12 file): `.gitattributes`, `.gitignore`, `AGENTS.md`,
+  `CONTRIBUTING.md`, `README.md`, `docs/PRD.md`, `docs/checkpoint.md`,
+  `docs/diagram/arsitektur.svg`, `tools/build.tcl`,
+  `tools/make_architecture.py`, `tools/make_diagram.py`, `tools/make_proposal.py`
+- Riwayat lokal: `git rev-list --all --objects` → **tidak ada** objek bernama
+  rubrik / docs-brief / docs-proposal / Ide-awal.
+- Proposal: OCR halaman 1 mengonfirmasi 7 nama + NIM, termasuk Irwanto.
+
+**Insiden & perbaikan**
+- `git filter-branch` melakukan `reset --hard` di akhir sehingga file akademik
+  **terhapus dari disk**. Sudah diantisipasi: sebelumnya di-backup ke
+  `.tmp/backup-akademik/` → seluruh file berhasil dipulihkan dan terverifikasi
+  (rubrik 3,3 KB; ide-awal 27,3 KB; proyek-1.pdf 201,9 KB; DOCX 148,7 KB;
+  PDF 214 KB; diagram 111,3 KB).
+- `git status` bersih → dokumen lokal benar-benar tidak ter-track.
+
+**Batasan yang diketahui**
+- Commit lama masih dapat diakses lewat **API GitHub jika SHA-nya diketahui**
+  (mis. `c7d6e08`). Tidak terhubung ke branch/tag mana pun dan tidak bisa
+  ditemukan lewat browsing, tetapi belum dipurge dari sisi GitHub. Pemilik
+  memilih menerima risiko ini alih-alih menghapus repo.
+- `tools/make_proposal.py` **tetap publik** dan memuat teks proposal serta daftar
+  nama + NIM. Pemilik sudah menyetujui nama & NIM tampil publik.
+
+**Berikutnya**
+- Menunggu keputusan: apakah `tools/make_proposal.py` tetap publik atau
+  dikeluarkan juga.
+- Menunggu: judul disepakati kelompok, deadline BRONE, model konverter
+  VGA→HDMI → lalu fase 1.
+
+---
+
 ## 2026-10-19 (lanjutan 3) — README profesional, diagram SVG, checkpoint tag
 
 **Dikerjakan**
