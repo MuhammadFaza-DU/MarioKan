@@ -136,7 +136,6 @@ tools/
   build.tcl         Vivado batch build script
   make_architecture.py   Generates the architecture diagram (SVG)
   make_diagram.py        Generates the proposal block diagram (PNG)
-  make_proposal.py       Generates the proposal document (DOCX)
 docs/
   PRD.md            Specification — authoritative requirements
   checkpoint.md     Work log and current status
@@ -144,7 +143,7 @@ docs/
 ```
 
 Local-only material (not tracked, excluded via `.gitignore`): `docs/brief/`,
-`docs/rubrik.md`, `docs/proposal/`.
+`docs/rubrik.md`, `docs/proposal/`, `tools/make_proposal.py`.
 
 `build.tcl` expects `src/` to exist and to contain at least one `.vhd` file;
 it exits with an explicit message otherwise. As of now `src/` is still empty.

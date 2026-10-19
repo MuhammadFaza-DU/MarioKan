@@ -15,6 +15,54 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan 6) — `tools/make_proposal.py` dikeluarkan dari repo publik
+
+**Latar**
+Script generator proposal memuat teks proposal lengkap + daftar nama/NIM
+anggota. Meski terlihat seperti tooling, isinya praktis membocorkan dokumen
+akademik dalam bentuk kode. Pemilik memutuskan mengeluarkannya.
+
+**Dikerjakan**
+- `tools/make_proposal.py` di-`git rm --cached` dan masuk `.gitignore`.
+  **File tetap ada di disk** (34.805 bytes) untuk dipakai pemilik.
+- Riwayat ditulis ulang (`git filter-branch --index-filter`, 13 commit) agar
+  script hilang dari seluruh riwayat, bukan hanya commit terakhir.
+- Ketiga tag dibuat ulang agar menunjuk riwayat baru (sebelumnya masih
+  menunjuk commit lama yang memuat script — sumber kebocoran).
+- `README.md`: entri `make_proposal.py` dihapus dari daftar tools, ditambahkan
+  ke daftar materi lokal.
+
+**Bukti**
+- `git rev-list --all --objects` → **tidak ada** objek bernama
+  `make_proposal`, `rubrik`, `docs/brief/`, atau `docs/proposal/`.
+- Tag diverifikasi menunjuk riwayat baru:
+  `v1 → d575ef0`, `v2 → 623a117`, `v3 → c4d405f`.
+- Force-push main + 3 tag sukses; `git ls-remote` mengonfirmasi remote.
+- Tree publik (anonim, tanpa login) — **11 file**, tanpa satu pun dokumen
+  akademik:
+  `.gitattributes`, `.gitignore`, `AGENTS.md`, `CONTRIBUTING.md`, `README.md`,
+  `docs/PRD.md`, `docs/checkpoint.md`, `docs/diagram/arsitektur.svg`,
+  `tools/build.tcl`, `tools/make_architecture.py`, `tools/make_diagram.py`
+
+**File lokal (tidak di-commit) — terverifikasi utuh**
+`docs/rubrik.md` 3,3 KB · `docs/brief/ide-awal.md` 27,3 KB ·
+`docs/brief/proyek-1.pdf` 201,9 KB · `docs/proposal/*.docx` 148,7 KB ·
+`docs/proposal/*.pdf` 214,0 KB · `docs/proposal/gambar/diagram-blok.png`
+111,3 KB · `tools/make_proposal.py` 34,0 KB
+
+**Catatan**
+- `reset --hard` dari `filter-branch` **tidak** menghapus file lokal kali ini,
+  karena file akademik sudah berstatus untracked sejak pembersihan sebelumnya.
+  Tetap di-backup lebih dulu sebagai pengaman.
+- Pemilik akan mengganti `make_proposal.py` dengan versi bersih nanti
+  (mis. template tanpa data anggota).
+
+**Berikutnya**
+- Menunggu: judul disepakati kelompok, deadline BRONE, model konverter
+  VGA→HDMI → lalu fase 1 (analisis modul repo acuan).
+
+---
+
 ## 2026-10-19 (lanjutan 5) — Audit lingkup kerja: git terisolasi, tidak ada file luar tersentuh
 
 **Latar**
