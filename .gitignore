@@ -25,6 +25,7 @@ reference/
 docs/rubrik.md
 docs/brief/
 docs/proposal/
+tools/make_proposal.py
 
 # Python
 __pycache__/
