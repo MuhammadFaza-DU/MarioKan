@@ -1,0 +1,36 @@
+# Artefak build Vivado
+build/
+*.bit
+*.dcp
+*.rpt
+*.jou
+*.log
+.Xil/
+vivado_*.backup.*
+vivado_pid*.str
+*.xpr
+*.hw/
+*.sim/
+*.cache/
+*.gen/
+*.ip_user_files/
+*.runs/
+*.srcs/
+
+# Scratch & referensi lokal (tidak pernah di-commit)
+.tmp/
+reference/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Hasil security scan
+strix_runs/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
