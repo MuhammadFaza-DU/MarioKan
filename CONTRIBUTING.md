@@ -21,6 +21,29 @@ alasan, jangan langsung PR.
 3. Buka Pull Request ke `main`. Sertakan: apa yang diubah, kenapa, dan bukti.
 4. Pemilik repo me-review. Merge hanya setelah CI/cek manual lolos.
 
+> **Catatan jujur soal penegakan aturan:** repo ini **private** pada akun GitHub
+> Free, sehingga **branch protection dan rulesets tidak dapat diaktifkan**
+> (GitHub mengembalikan HTTP 403). Artinya aturan "jangan push langsung ke
+> `main`" di atas adalah **konvensi, bukan paksaan teknis**. Semua collaborator
+> secara teknis masih bisa push langsung ke `main`.
+>
+> Mohon dipatuhi secara sukarela. Bila ingin dipaksakan, pilihannya: (a) upgrade
+> akun ke GitHub Pro, atau (b) jadikan repo publik setelah tugas selesai.
+> Pemilik repo akan memeriksa riwayat `main` bila terjadi masalah.
+
+## Peran collaborator
+
+| Akses | Hak |
+|---|---|
+| `push` | Commit, buat branch, buka Pull Request |
+| `admin` | Ubah setting, hapus repo — **hanya pemilik** |
+
+Undang collaborator (dijalankan pemilik):
+
+```powershell
+gh api --method PUT repos/MuhammadFaza-DU/MarioKan/collaborators/<USERNAME> -f permission=push
+```
+
 ## Aturan bukti (tidak bisa dinegosiasi)
 
 Setiap klaim harus menyebut tingkat buktinya:
