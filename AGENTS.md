@@ -62,6 +62,30 @@ Root project: `D:\Progamming\Project dan SourceCode\VHDL\Project-Terakhir-SDL`
 - Log Vivado (`vivado*.log`) muncul di cwd → jalankan build dari `.tmp/build/`,
   jangan dari root repo.
 
+### 5.0 Checkpoint setiap pekerjaan besar (WAJIB ditawarkan)
+
+Setiap kali menyelesaikan pekerjaan besar (fase selesai, fitur jadi, dokumen
+besar selesai, bug besar teratasi), **selalu tawarkan** tiga langkah ini —
+jangan menunggu diminta:
+
+```powershell
+git add -A
+git commit -m "<pesan jelas>"
+git tag -a stable-YYYY-MM-DD-vN -m "<ringkasan titik stabil>"
+git push
+git push origin stable-YYYY-MM-DD-vN
+```
+
+- Ambil tanggal: `Get-Date -Format "yyyy-MM-dd"`.
+- Nomor `N`: hitung dari tag yang sudah ada hari itu
+  (`git tag -l "stable-<tanggal>-v*"`), mulai dari `v1`.
+- Format tawaran ke user: sebutkan **apa yang akan di-commit**, **nama tag**,
+  lalu tunggu izin. Jangan commit/tag/push diam-diam.
+- Kalau working tree sudah bersih (tidak ada perubahan baru), tetap tawarkan
+  tag-nya — tag boleh menunjuk commit yang sudah ada.
+- Setelah dieksekusi, verifikasi: `git tag -l` dan `git ls-remote --tags origin`.
+- Riwayat checkpoint juga dicatat di `docs/checkpoint.md`.
+
 ## 5.1 Struktur dokumen (wajib rapi)
 
 Semua dokumen masuk `docs/`, tidak ada file dokumen berserakan di root.

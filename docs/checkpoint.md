@@ -15,6 +15,43 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-19 (lanjutan 3) — README profesional, diagram SVG, checkpoint tag
+
+**Dikerjakan**
+- README ditulis ulang secara profesional: fokus rekayasa (arsitektur, video
+  pipeline, status berbasis bukti), tanpa framing akademik.
+- `tools/build.tcl` dibuat (sebelumnya disebut README tapi belum ada).
+- Diagram ASCII di README diganti **SVG vektor** (`docs/diagram/arsitektur.svg`)
+  karena box-drawing ASCII pecah di GitHub.
+- `AGENTS.md` §5.0: aturan wajib menawarkan commit + tag + push setiap
+  pekerjaan besar.
+
+**Bukti**
+- `build.tcl` dijalankan nyata: root ber-spasi ter-resolve benar, gagal dengan
+  pesan jelas saat `src/` kosong (sesuai rancangan).
+- SVG: XML valid (74 elemen), dirender Chrome headless 2× → 2400×2080 px,
+  OCR membaca **29 label** dengan confidence 0.92–1.00.
+- Tag `stable-2026-10-19-v1` dibuat (annotated) dan **ada di remote**
+  (`git ls-remote --tags origin` mengonfirmasi).
+- `git status` bersih; `main` sinkron dengan `origin/main`.
+
+**Koreksi**
+- Draft README pertama menulis "running on a Digilent Basys 3 board"
+  (present tense) padahal belum ada RTL → dikoreksi jadi "targeting".
+- README menyebut `tools/build.tcl` yang belum ada → file dibuat, bukan
+  klaimnya yang dihapus.
+
+**Belum terverifikasi**
+- Tampilan README & SVG di GitHub (butuh jaringan + render browser; hanya
+  diverifikasi lokal via Chrome).
+- Badge di README belum dicek render-nya.
+
+**Berikutnya**
+- Menunggu: judul disepakati kelompok, konfirmasi deadline BRONE, model
+  konverter VGA→HDMI, lalu mulai fase 1 (analisis modul repo acuan).
+
+---
+
 ## 2026-10-19 (lanjutan 2) — Repo GitHub: private, contributor, batasan platform
 
 **Dikerjakan**
