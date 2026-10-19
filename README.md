@@ -33,11 +33,15 @@ Tingkat bukti yang dipakai di repo ini — **tiga tingkat, jangan dicampur**:
 ## Struktur repo
 
 ```
-docs/            PRD, catatan porting, checkpoint, keputusan desain
-src/             RTL VHDL (menyusul)
-constraints/     XDC Basys3
-sim/             testbench VHDL
-tools/           skrip Python/Tcl (konversi sprite, build batch)
+docs/
+  PRD.md            spesifikasi operasional (sumber kebenaran requirement)
+  rubrik.md         rubrik & ketentuan tugas dari dosen
+  checkpoint.md     progres & riwayat kerja
+  brief/            dokumen mentah: proyek-1.pdf, ide-awal.md
+src/                RTL VHDL (menyusul)
+constraints/        XDC Basys3
+sim/                testbench VHDL
+tools/              skrip Python/Tcl (konversi sprite, build batch)
 ```
 
 ## Build

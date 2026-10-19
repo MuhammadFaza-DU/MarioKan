@@ -48,6 +48,29 @@ layar, sehingga beban komputasi jatuh drastis tanpa mengorbankan ketajaman.
 | SC-7 | Game dapat dimainkan penuh: menu → level → menang | uji papan, skenario uji tertulis |
 | SC-8 | Semua aturan menang/kalah terpicu sesuai §4.6 | testbench + uji papan |
 
+### 1.1 Konteks akademik & deliverable
+
+Proyek ini adalah tugas akhir mata kuliah **Sistem Digital Lanjut**, dikerjakan
+bertahap. Tahap yang sedang berjalan: **Proyek 1 — Usulan Judul**
+(sumber: `docs/brief/proyek-1.pdf`, rubrik: `docs/rubrik.md`).
+
+| Deliverable | Isi | Status |
+|---|---|---|
+| **D0 — Proposal judul** | Judul, tujuan & fungsi, cara kerja (input/proses/output), rencana implementasi VHDL di Basys 3. PDF diunggah via BRONE | **belum ditulis — prioritas sekarang** |
+| D1 — RTL + bitstream | Semua modul §4.4, `build.tcl`, XDC, bitstream | belum ada |
+| D2 — Laporan kuliah | Dokumen akademik terpisah dari PRD | belum ada |
+| D3 — Slide / video demo | Materi presentasi + rekaman board | belum ada |
+| D4 — Dokumentasi teknis | `PORTING_NOTES.md`, diagram arsitektur, `checkpoint.md` | sebagian |
+
+Bobot rubrik D0: kesesuaian judul **20%**, tujuan & fungsi **25%**, cara kerja &
+I/O **25%**, **kelayakan implementasi 30%**. Komponen terbesar justru punya
+bukti empiris (`SYN`, §4.2) → proposal dapat menampilkan angka, bukan janji.
+
+**Jadwal:** batas maksimum **2 bulan** sejak 2026-10-19; target internal lebih
+cepat, kualitas diutamakan. Eksekusi direncanakan memakai **beberapa agent
+paralel dengan satu agent pengontrol**, sehingga task harus dipecah menjadi unit
+dengan batas file yang jelas dan tidak saling menimpa.
+
 ---
 
 ## 2. User Experience & Functionality
@@ -236,6 +259,15 @@ Setiap sprite/tile membawa **2 bit bank-select** di metadata-nya. Output ke VGA 
 | Menu naik/turun | `↑` `↓` |
 | Pilih | `Enter` |
 | Pause | `P` / `Esc` |
+
+**Jalur input cadangan (disetujui pemilik, 2026-10-19)**
+
+- `sw[15:13]` = kiri / kanan / lompat; `sw[12]` = aksi (lari/tembak).
+- `btnU` = lompat (duplikat, untuk kemudahan demo).
+- Fungsi: **demo/debug fallback** bila jalur PS/2 gagal saat presentasi.
+  **Tidak menggantikan** keyboard; keyboard tetap jalur utama dan wajib berfungsi.
+- Biaya ± belasan LUT. Wajib didokumentasikan di `README` dan `PORTING_NOTES.md`
+  sebagai fitur *non-spec* (lihat deviasi D-8).
 
 **Mouse (opsional, graceful degradation — status: belum tervalidasi)**
 - `ps2_tx`: kirim `0xFF` (reset) → tunggu `0xFA 0xAA 0x00` → `0xF4` (enable reporting).
@@ -458,6 +490,7 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 
 | Fase | Isi | Gate (bukti) |
 |---|---|---|
+| **0. Proposal judul (D0)** | Judul, tujuan & fungsi, cara kerja, rencana implementasi + bukti kelayakan (`SYN`) | PDF terunggah via BRONE |
 | **1. Analisis** | Ringkasan perilaku modul repo acuan (fisika, goomba, item), daftar asumsi | Dokumen ringkasan disetujui |
 | **2. Fondasi video** | `clk_gen`, `reset_sync`, `vga_timing`, `scaler`, pola uji warna, XDC, `build.tcl` | `SYN` WNS≥0 + **`BOARD`** gambar tampil di TV |
 | **3. Aset** | `sprites2vhdl.py`, palet, ROM sprite/tile/font/level | `SIM` render statis benar |
@@ -487,16 +520,26 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 
 ---
 
-## 7. Pertanyaan terbuka (menunggu input pemilik)
+## 7. Keputusan pemilik & pertanyaan terbuka
 
-| ID | Pertanyaan | Mengapa penting | Dampak bila tidak dijawab |
+### 7.1 Sudah dijawab (2026-10-19)
+
+| ID | Pertanyaan | Jawaban | Dampak ke PRD |
 |---|---|---|---|
-| Q-1 | **Spesifikasi alat** (dokumen yang dijanjikan) | Bisa mengubah target video/IO | PRD bisa salah asumsi hardware |
-| Q-2 | **Rubrik penilaian dosen** | Menentukan prioritas fitur | Bisa salah mengalokasikan waktu ke fitur bernilai rendah |
-| Q-3 | **Ketentuan tugas akhir** (format laporan, demo, batas waktu pasti) | Menentukan deliverable & jadwal | Risiko kurang dokumen saat pengumpulan |
-| Q-4 | Merek/tipe **konverter VGA→HDMI** | Menentukan risiko R-2 | Tidak bisa menilai kompatibilitas 1080p60 |
-| Q-5 | Apakah ada **USB hub** | Menentukan apakah mouse bisa diuji | Mouse berstatus "belum diuji" |
-| Q-6 | Batas waktu demo yang **pasti** (tanggal) | Menentukan pemangkasan scope | Perencanaan fase tidak terkalibrasi |
-| Q-7 | Apakah Basys3 terhubung ke **mesin ini** (JTAG/FTDI), atau setiap uji papan lewat kamu? | Menentukan apakah agent bisa flash sendiri atau harus siklus manual | Jumlah round trip per fase; cara merancang observabilitas on-board |
-| Q-8 | Bukti perilaku **PIC24 USB-HID** pada Basys3: satu pasangan PS/2 di-multiplex, atau ada pasangan kedua? | Menentukan hidup/matinya fitur mouse (D-9) | Fitur mouse bisa dibuang atau dikerjakan sia-sia |
-| Q-9 | Apakah `sw`/`btn` boleh dipakai sebagai **input cadangan** saat demo? | Menentukan port top + XDC | Bila ditolak, risiko R-9 tidak punya mitigasi |
+| Q-1 | Spesifikasi alat | **Basys 3, Xilinx Artix-7 `XC7A35T-1CPG236C`** | §4.1 final, target tidak berubah |
+| Q-2 | Rubrik penilaian | Diperoleh → `docs/rubrik.md` | Prioritas mengikuti bobot; kelayakan 30% → bukti `SYN` masuk proposal |
+| Q-3 | Ketentuan tugas akhir | `docs/brief/proyek-1.pdf`; tahap 1 = **usulan judul** | Ditambah §1.1 + deliverable D0 |
+| Q-4 | Konverter VGA→HDMI | Belum bisa dicek; **diuji di fase 2** dengan pola uji | R-2 tetap terbuka, tidak memblokir fase 0–1 |
+| Q-5 | USB hub | Belum diketahui | Mouse tetap fitur `4b` opsional |
+| Q-6 | Batas waktu | **Maksimum 2 bulan**, target lebih cepat, kualitas utama | Roadmap §5.2 penuh, gate per fase |
+| Q-7 | Akses board | **Basys3 bisa dicolok ke mesin ini** | Agent bisa flash & membaca hasil sendiri → bukti `BOARD` dapat dihasilkan langsung |
+| Q-9 | Input cadangan `sw`/`btn` | **Disetujui** | Masuk §4.3 + deviasi D-8 |
+
+### 7.2 Masih terbuka
+
+| ID | Pertanyaan | Dampak bila tidak dijawab |
+|---|---|---|
+| Q-8 | Bukti perilaku **PIC24 USB-HID**: satu pasangan PS/2 di-multiplex, atau ada pasangan kedua? | Menentukan hidup/matinya fitur mouse (D-9) |
+| Q-10 | Tanggal pengumpulan **D0 (proposal)** yang sebenarnya | Menentukan urgensi penulisan proposal |
+| Q-11 | Daftar judul kelompok lain (`s.ub.ac.id/8sw` → **403**, butuh login) | Risiko judul bentrok dengan kelompok lain |
+| Q-12 | Format laporan kuliah (template, bab wajib) | Menentukan isi deliverable D2 |

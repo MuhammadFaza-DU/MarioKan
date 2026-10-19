@@ -56,15 +56,41 @@ Root project: `D:\Progamming\Project dan SourceCode\VHDL\Project-Terakhir-SDL`
 ## 5. Artefak & Git
 
 - `.gitignore` wajib memuat: `build/`, `*.bit`, `*.dcp`, `*.rpt`, `.Xil/`,
-  `.tmp/`, `reference/`, `strix_runs/`.
+  `.tmp/`, `reference/`, `strix_runs/`, `*.log`.
 - Jangan `git init` / commit / push / tag tanpa izin user.
 - Bitstream final boleh disimpan (kecil) bila user mau; tanyakan dulu.
+- Log Vivado (`vivado*.log`) muncul di cwd → jalankan build dari `.tmp/build/`,
+  jangan dari root repo.
+
+## 5.1 Struktur dokumen (wajib rapi)
+
+Semua dokumen masuk `docs/`, tidak ada file dokumen berserakan di root.
+
+```
+docs/
+  PRD.md            -- spesifikasi operasional (sumber kebenaran requirement)
+  rubrik.md         -- rubrik & ketentuan tugas (transkripsi terstruktur)
+  checkpoint.md     -- progres & riwayat kerja (satu-satunya sumber progres)
+  PORTING_NOTES.md  -- pemetaan modul lama -> baru, keputusan, batasan
+  brief/            -- dokumen mentah dari dosen/user (PDF, brief awal)
+```
+
+Aturan:
+- Dokumen baru dari luar (PDF/screenshot/tugas) → simpan di `docs/brief/`
+  dengan nama deskriptif huruf kecil (`proyek-1.pdf`).
+- Jangan menaruh dokumen di root kecuali `README.md`, `AGENTS.md`,
+  `CONTRIBUTING.md`.
+- Dokumen yang isinya penting tetapi sulit dicari (PDF/scan) → buat
+  transkripsi terstruktur sebagai `.md` di `docs/`.
+- Setiap dokumen baru wajib dirujuk dari `README.md` atau `docs/PRD.md`.
 
 ## 6. Sumber Kebenaran Requirement
 
-- `Ide-awal.md` = brief awal (sudah ada).
+- `docs/brief/ide-awal.md` = brief awal (referensi teknis, **bukan** requirement).
+- `docs/brief/proyek-1.pdf` = ketentuan tugas dari dosen (Proyek 1: usulan judul).
+- `docs/rubrik.md` = transkripsi rubrik + ketentuan proposal.
 - `docs/PRD.md` = spesifikasi operasional setelah disetujui user. Bila PRD dan
-  `Ide-awal.md` berbeda, **PRD menang**, tetapi perbedaan itu harus tercatat di
+  brief berbeda, **PRD menang**, tetapi perbedaan itu harus tercatat di
   bagian "Deviasi dari brief" pada PRD.
 - Requirement baru dari dosen/user → update PRD dulu, baru kode.
 
