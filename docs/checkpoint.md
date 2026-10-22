@@ -15,6 +15,253 @@ proyek tanpa membaca ulang seluruh riwayat chat.
 
 ---
 
+## 2026-10-22 (lanjutan 2) — Nama final proposal ditetapkan (rename)
+
+**Keputusan pemilik**
+Nama file proposal final = **`Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`**
+(format yang dipakai saat mengunggah ke BRONE, sama dengan nama saat pertama
+dikirim). Nama-nama iterasi `rev` / `rev2` / `rev3` **tidak dipakai lagi**.
+
+**Dikerjakan**
+- `docs/proposal/Proposal-P1-MarioKan-rev3-2026-10-22.pdf` →
+  `docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf` (isi byte-identik,
+  274.168 B, tidak ada perubahan dokumen).
+- Entri checkpoint sebelumnya ditandai koreksinya (lihat catatan *Koreksi nama*
+  di dua entri 2026-10-22 di bawah) agar penamaan tidak ambigu.
+
+**Kondisi `docs/proposal/` sekarang (satu-satunya yang ada)**
+
+```
+docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf   274.168 B  <- FINAL
+docs/proposal/gambar/diagram-blok.png                    114.008 B  <- sumber Gambar 1
+```
+
+**Bukti**
+- `Get-ChildItem docs\proposal -Recurse -File` → hanya 2 file di atas.
+- Ukuran 274.168 B sama persis dengan `rev3` sebelum rename → rename murni,
+  tidak ada kerusakan/regenerasi.
+- Root repo tetap 5 file publik; `git status` bersih (folder `docs/proposal/`
+  gitignored).
+
+**Berikutnya**
+- ~~Sinkronkan Q13.8 ke `docs/PRD.md` §4.5 dan `README.md`~~
+  → **SUDAH DIKERJAKAN** 2026-10-22 (lanjutan 4, lihat entri paling atas).
+
+---
+
+## 2026-10-22 (lanjutan 4) — Q12.8 → Q13.8 disinkronkan ke PRD + README
+
+**Latar**
+Proposal final sudah memakai **Q13.8**, tetapi `docs/PRD.md` §4.5 dan
+`README.md` masih menulis **Q12.8** — klaim yang **salah aritmetika**:
+20-bit signed Q12.8 hanya menjangkau ±2.047,996, sedangkan level terlebar
+212 metatile × 16 px = 3.392 px. Ini inkonsistensi terakhir yang tersisa
+setelah proposal dibereskan.
+
+**Dikerjakan**
+- `docs/PRD.md` §4.5 (baris 361–368):
+  - `Q12.8 (20-bit signed)` → **`Q13.8 (21-bit signed: 1 sign + 12 integer + 8 fraksi)`**
+  - ditambah jangkauan eksplisit **±4.095,996** + headroom **703,996 px**
+  - ditambah catatan bahwa Q12.8 **tidak cukup** (bukan hanya Q8.8)
+  - baris konversi koordinat layar: `Q12.8` → `Q13.8`
+- `docs/PRD.md` §6 tabel deviasi **D-10**: keputusan diubah ke Q13.8 +
+  kolom alasan mencatat riwayat koreksinya (Q12.8 sempat dipakai, dikoreksi
+  2026-10-22).
+- `README.md` (baris 32–35): `Q12.8` → **`Q13.8`**, ditambah penjelasan singkat
+  21-bit signed, ±4095.996 px, dan mengapa Q12.8 gagal.
+
+**Bukti aritmetika (dihitung, bukan dikira)**
+```
+Q13.8  21-bit signed : min -4096.000000  max 4095.996094  ->  +-4095.996
+Q12.8  20-bit signed : min -2048.000000  max 2047.996094  ->  +-2047.996
+Q8.8   16-bit signed : min  -128.000000  max  127.996094  ->   +-127.996
+level terlebar : 212 x 16 = 3392 px
+Q13.8 headroom : 703.996094 px   -> cukup
+Q12.8 cukup    : False
+```
+
+**Sisa penyebutan `Q12.8` (sengaja, bukan inkonsistensi)**
+- `docs/checkpoint.md` — entri-entri historis di bawah, memang mencatat
+  temuan saat itu.
+- `docs/PRD.md` baris 364 & 522 — disebut sebagai **pembanding** ("Q12.8 tidak
+  cukup") dan sebagai **riwayat koreksi** di D-10. Bukan klaim aktif.
+
+**Berikutnya**
+- Tidak ada pekerjaan dokumen yang tertunda. Berikutnya = mulai RTL fase 1
+  (analisis modul repo acuan) setelah judul disetujui dosen.
+
+---
+
+## 2026-10-22 (lanjutan 3) — Metadata PDF dibersihkan
+
+**Latar**
+Metadata internal PDF final masih menyimpan nama kerja lama:
+`title = "Proposal-Proyek-1-MarioKan_Rev - Google Dokumen"`. Kalau dosen membuka
+*Properties* di PDF reader, yang muncul nama draf, bukan judul proposal.
+
+**Dikerjakan** (`PyMuPDF`, script di `.tmp/` — scratch, tidak di-commit)
+- `title` → `Proposal Proyek Akhir - MarioKan: Implementasi Game Platformer
+  Bergaya Super Mario Bros Berbasis FPGA Basys 3 dengan Bahasa VHDL`
+- `author` → 7 nama anggota (dipisah `;`)
+- `subject` → `Proposal Proyek 1 - Mata Kuliah Sistem Digital Lanjut`
+- `keywords` → `FPGA; Basys 3; Artix-7 XC7A35T; VHDL; game platformer; 1920x1080; MarioKan`
+- `creator` / `producer` / `creationDate` **dibiarkan apa adanya** (jujur:
+  Chrome + Skia/PDF m155 = memang ekspor Google Docs). Tidak dipalsukan.
+
+**Jebakan yang ditemukan (penting untuk siapa pun yang mengedit PDF ini)**
+1. `saveIncr()` → metadata tampil baru, **tetapi objek lama tetap ada di byte
+   file**; `strings`/grep masih menemukan `MarioKan_Rev`. Tidak cukup.
+2. `save(..., clean=True)` → **MERUSAK RENDERING**. Terukur: 2,5%–10,6% piksel
+   berbeda per halaman pada dpi 110; spasi antar kata hilang sehingga teks
+   terbaca `DENGANBAHASAVHDLkarena`. **Jangan dipakai.**
+3. `save(..., garbage=4, deflate=True)` **tanpa `clean`** → satu-satunya opsi
+   yang benar: piksel **identik 12/12 halaman**, teks identik, string lama
+   **hilang total**, ukuran 274.168 → 273.904 B.
+
+**Bukti (semua terverifikasi, bukan asumsi)**
+- `piksel identik = True` untuk 12 halaman @ dpi 110 (perbandingan
+  `pixmap.samples` per halaman terhadap file sebelum diedit).
+- `teks identik = True` (ekstraksi text-layer per halaman).
+- Pencarian byte: `MarioKan_Rev` / `Google Dokumen` / `Proposal-Proyek-1-MarioKan`
+  → **semuanya False**.
+- Metadata akhir: title/author/subject/keywords sesuai di atas.
+- Isi dokumen tetap: `seg[6:0], an[3:0]`, `W7/U7/U2/W4`, `U16 (led[0]) … L1`,
+  `Q13.8` ada, `Q12.8` tidak ada, `Disusun Oleh` ada, `Disusuh` tidak ada,
+  12 halaman, 2.026 kata.
+- Render halaman 7 + OCR: tabel pin terbaca benar (baris seven-segment cocok).
+
+**Cadangan**
+- `.tmp/backup_before_metadata.pdf` (274.168 B) = PDF asli **sebelum** metadata
+  diedit. Ada di `.tmp/` yang gitignored → **tidak ikut ter-commit**. Hapus
+  kalau sudah yakin.
+
+**Berikutnya**
+- ~~Sama seperti entri sebelumnya (sinkron Q13.8 ke PRD + README)~~
+  → **SUDAH DIKERJAKAN** 2026-10-22 (lanjutan 4).
+
+---
+
+## 2026-10-22 — Review proposal revisi pemilik vs rubrik + relokasi file
+
+> **Koreksi nama (2026-10-22, lanjutan 2):** file hasil relokasi di entri ini
+> sempat bernama `Proposal-P1-MarioKan-rev-2026-10-22.pdf`, lalu **dihapus**.
+> Nama final yang berlaku sekarang: `Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`.
+
+**Dikerjakan**
+- Membaca proposal revisi pemilik (ekspor Google Docs, 12 halaman, 2.012 kata,
+  berjudul internal `Proposal-Proyek-1-MarioKan_Rev`) dan membandingkannya
+  dengan `docs/rubrik.md`, `docs/PRD.md`, `README.md`, serta versi lama
+  (`docs/proposal/Proposal-Proyek-1-MarioKan.pdf`, 10 halaman, 2.487 kata).
+  > **Catatan (2026-10-22):** file pembanding ini **sudah dihapus**; angka
+  > 10 hal / 2.487 kata dipertahankan sebagai riwayat pengukuran.
+- Memindahkan PDF dari **root repo** ke `docs/proposal/` sebagai
+  `Proposal-P1-MarioKan-rev-2026-10-22.pdf`. Root sebelumnya memuat dokumen
+  akademik yang **belum di-ignore** → satu `git add -A` bisa membocorkannya ke
+  repo publik.
+
+**Bukti**
+- `git status --untracked-files=all` → **bersih** setelah relokasi.
+- Root kini hanya 5 file publik: `.gitattributes`, `.gitignore`, `AGENTS.md`,
+  `CONTRIBUTING.md`, `README.md`.
+- Tabel pin proposal dicek baris per baris terhadap
+  `Basys-3-Master.xdc` resmi Digilent (diunduh, disimpan di `.tmp/`):
+  clk/VGA/Hsync/Vsync/PS2/sw/btn/JA **cocok**; baris **LED** dan
+  **seven-segment** salah urutan.
+
+**Temuan (diserahkan ke pemilik untuk diperbaiki sendiri)**
+- Typo hal. 1 `Disusuh` → `Disusun`.
+- `led[15:0] U16 … L1` seharusnya `led[0]=U16 … led[15]=L1`;
+  `seg[6:0], an[3:0] W7 … U2` seharusnya `seg[0]=W7…seg[6]=U7`,
+  `an[0]=U2…an[3]=W4`.
+- Klaim "Q12.8 (20 bit bertanda) menjangkau 3.392 px" **salah aritmetika**:
+  20-bit signed Q12.8 maks ±2.047,996. Perlu Q13.8 (21-bit) atau x unsigned.
+  Klaim sama ada di PRD §4.5 dan README → **belum diperbaiki**, menunggu
+  keputusan pemilik.
+- Caption Gambar 1 menumpuk tepi bawah gambar (bbox gambar berakhir y=625,0 pt,
+  caption mulai y=620,1 pt → overlap ±4,9 pt).
+- Label diagram efektif ≈4,6 pt saat dicetak (gambar 2046×1060 px di 15,09 cm).
+- Tabel pecah halaman tanpa header berulang; satu header yatim (hal. 9).
+- Cover kehilangan "Mata Kuliah: Sistem Digital Lanjut" + "S1".
+- Judul §3 "Gambaran Kerja" ≠ istilah rubrik "Gambaran cara kerja".
+- Tidak ada sitasi dalam teks meski daftar pustaka 10 entri; tidak ada
+  pernyataan orisinalitas/atribusi aset.
+
+**Status penilaian (pendapat, bukan nilai dosen)**
+Keempat komponen rubrik (20/25/25/30) menurut penilaian reviewer berada di
+**Level 5**; kekurangan ada di detail teknis & format, bukan substansi.
+
+**Berikutnya**
+- Pemilik memperbaiki sendiri di Google Docs → menyerahkan versi benar.
+- ~~Menunggu keputusan: Q13.8 vs unsigned 20-bit~~ → **sudah diputuskan Q13.8**
+  (dipakai di proposal final).
+- ~~Sinkronkan ke `docs/PRD.md` §4.5 dan `README.md`~~
+  → **SUDAH DIKERJAKAN** 2026-10-22 (lanjutan 4).
+
+---
+
+## 2026-10-22 (lanjutan) — Proposal FINAL ditetapkan + file lama dihapus
+
+> **Koreksi nama (2026-10-22, lanjutan 2):** entri ini memakai label iterasi
+> `rev`/`rev2`/`rev3` sebagai penanda kerja, **bukan** nama file final. Nama file
+> final sekarang: `docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`
+> (= isi `rev3`). Label iterasi di bawah dipertahankan sebagai riwayat.
+
+**Latar**
+Pemilik menyerahkan tiga iterasi perbaikan di hari yang sama. Iterasi ketiga
+(`rev3`, 12 hal, 2.026 kata, dibuat 07:18 UTC) dinyatakan **final**.
+
+**Riwayat iterasi (semua terverifikasi dari text-layer PDF)**
+
+| Iterasi | Dibuat | Yang berubah |
+|---|---|---|
+| `rev` | 06:37 UTC | versi pertama dari pemilik (2.012 kata) |
+| `rev2` | 07:05 UTC | `Disusuh`→`Disusun`, LED `U16 (led[0]) … L1 (led[15])`, Q12.8→**Q13.8** (hal. 5 & 9), tabel 4.1 jadi 1 halaman (font 10 pt) — **tapi kolom seg/an tertukar** |
+| `rev3` | 07:18 UTC | kolom seven-segment dibetulkan: Sinyal `seg[6:0], an[3:0]`, Pin `W7 … U7 (seg), U2 … W4 (an)` |
+
+**Dikerjakan**
+- `docs/proposal/` dibersihkan atas instruksi pemilik. **Dihapus (4 file):**
+  `Proposal-P1-MarioKan-rev-2026-10-22.pdf`,
+  `Proposal-P1-MarioKan-rev2-2026-10-22.pdf`,
+  `Proposal-Proyek-1-MarioKan.docx`, `Proposal-Proyek-1-MarioKan.pdf`
+  (dua terakhir = deliverable lama 2026-10-19, 10 hal).
+- **Tersisa saat itu:** `Proposal-P1-MarioKan-rev3-2026-10-22.pdf` (274.168 B)
+  + `gambar/diagram-blok.png`. → **Sudah di-rename** jadi
+  `Proposal_P1_Muhammad Faza Difa'ulhaq.pdf` (lihat entri lanjutan 2 di atas).
+
+**Bukti**
+- Tabel pin §4.1 `rev3` dicek ulang ke `Basys-3-Master.xdc`: baris
+  seven-segment **cocok penuh** (`seg[0]=W7`…`seg[6]=U7`, `an[0]=U2`…`an[3]=W4`).
+  Seluruh tabel pin kini **0 error**.
+- `git status` bersih; root repo tetap 5 file publik.
+
+**Cacat yang MASIH ADA di versi final (diketahui, diterima pemilik)**
+
+> Berlaku untuk file final `Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`.
+> Semua terverifikasi ulang dari PDF final, bukan dari ingatan.
+
+- Caption Gambar 1 masih menumpuk gambar (overlap **4,9 pt**).
+- Daftar pustaka keluar margin kiri **1,27 cm** (entri di x=72 pt, body x=108 pt).
+- Header tabel belum berulang (hal. 4, 8, 10, 11) + header yatim hal. 9.
+- Kata `Seven-segmen` / `t` terpotong di kolom Perangkat.
+- `±4.095,99` (eksaknya 4.095,996); `XC7A35TCpg236-1` (gaya beda).
+- Judul §3 `Gambaran Kerja` ≠ istilah rubrik; cover tanpa `Mata Kuliah`/`S1`.
+- Audio masih di kolom "Termasuk dalam proyek".
+- **0 sitasi dalam teks** meski daftar pustaka 10 entri.
+
+**Sudah benar di versi final (jangan diperbaiki lagi)**
+- `Disusun Oleh` (bukan `Disusuh`).
+- Tabel pin §4.1: `led[15:0]` → `U16 (led[0]) … L1 (led[15])`.
+- Tabel pin §4.1: `seg[6:0], an[3:0]` → `W7 … U7 (seg), U2 … W4 (an)`.
+- Fixed-point **Q13.8** (hal. 5 §3.2 dan hal. 9 §4.3.4) — bukan Q12.8 lagi.
+
+**Berikutnya**
+- ~~Sinkronkan Q13.8 ke `docs/PRD.md` §4.5 dan `README.md`~~
+  → **SUDAH DIKERJAKAN** 2026-10-22 (lanjutan 4).
+- Deliverable lama DOCX/PDF terhapus; bisa diregenerasi dari
+  `tools/make_proposal.py` (34 KB, ada di disk, gitignored) bila diperlukan.
+
+---
+
 ## 2026-10-19 (lanjutan 6) — `tools/make_proposal.py` dikeluarkan dari repo publik
 
 **Latar**
@@ -244,6 +491,8 @@ Pemilik menanyakan dua hal yang perlu dibuktikan, bukan diyakinkan:
 - Membuat diagram blok sistem (PNG) via `tools/make_diagram.py`.
 - Generator dokumen: `tools/make_proposal.py` (python-docx).
 - Output: `docs/proposal/Proposal-Proyek-1-MarioKan.docx` + `.pdf`.
+  > **Catatan (2026-10-22):** kedua file ini **sudah dihapus** dari disk atas
+  > instruksi pemilik. Bisa diregenerasi dari `tools/make_proposal.py` bila perlu.
 
 **Bukti**
 - DOCX tersimpan, dikonversi ke PDF via Word COM: **10 halaman**, 2.455 kata.

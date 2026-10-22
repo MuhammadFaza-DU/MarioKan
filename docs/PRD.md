@@ -57,7 +57,7 @@ dokumen **lokal**, tidak di-commit ke repo publik).
 
 | Deliverable | Isi | Status |
 |---|---|---|
-| **D0 — Proposal judul** | Judul, tujuan & fungsi, cara kerja (input/proses/output), rencana implementasi VHDL di Basys 3. PDF diunggah via BRONE | **belum ditulis — prioritas sekarang** |
+| **D0 — Proposal judul** | Judul, tujuan & fungsi, cara kerja (input/proses/output), rencana implementasi VHDL di Basys 3. PDF diunggah via BRONE | **final** — `docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf` (12 hal, 2.026 kata, 2026-10-22). Menunggu unggah BRONE |
 | D1 — RTL + bitstream | Semua modul §4.4, `build.tcl`, XDC, bitstream | belum ada |
 | D2 — Laporan kuliah | Dokumen akademik terpisah dari PRD | belum ada |
 | D3 — Slide / video demo | Materi presentasi + rekaman board | belum ada |
@@ -358,12 +358,14 @@ didesain tetapi **tidak masuk v1** — lihat §6.
 - Tanpa latch, tanpa loop kombinasional. `Inferred latch` = **bug**, harus nol.
 - Pembacaan BRAM **sinkron**; latensi pipeline dihitung dan sync disejajarkan.
 - Tanpa `real`/floating point di logika sintesis → **fixed-point**, didefinisikan di `game_pkg.vhd`:
-  - **Posisi dunia (`world_x`, `world_y`, `camera_x`) = Q12.8** (20-bit `signed`).
-    Level terlebar 212 metatile × 16 px = **3392 px**, sementara Q8.8 hanya
-    menjangkau ±127,996 → **Q8.8 tidak cukup untuk posisi**.
+  - **Posisi dunia (`world_x`, `world_y`, `camera_x`) = Q13.8** (21-bit `signed`:
+    1 sign + 12 integer + 8 fraksi) → jangkauan **±4.095,996**.
+    Level terlebar 212 metatile × 16 px = **3392 px**, jadi Q13.8 memenuhi
+    dengan sisa **703,996 px**. Q12.8 (20-bit `signed`) hanya menjangkau
+    ±2.047,996 → **tidak cukup**; Q8.8 (±127,996) jauh lebih tidak cukup.
   - **Kecepatan (`vel_x`, `vel_y`) = Q8.8** (16-bit `signed`) — cukup untuk
     rentang kecepatan realistis dengan presisi sub-piksel.
-  - Konversi ke koordinat layar: ambil bit integer dari Q12.8 (geser 8, tanpa divider).
+  - Konversi ke koordinat layar: ambil bit integer dari Q13.8 (geser 8, tanpa divider).
 - Pembagian/modulo konstanta non-pangkat-2 **dilarang** di jalur piksel.
 - `inout` hanya di top untuk `PS2Clk`/`PS2Data` dengan buffer open-drain.
 
@@ -491,7 +493,7 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 
 | Fase | Isi | Gate (bukti) |
 |---|---|---|
-| **0. Proposal judul (D0)** | Judul, tujuan & fungsi, cara kerja, rencana implementasi + bukti kelayakan (`SYN`) | PDF terunggah via BRONE |
+| **0. Proposal judul (D0)** | Judul, tujuan & fungsi, cara kerja, rencana implementasi + bukti kelayakan (`SYN`) | **Dokumen: SELESAI** (2026-10-22). Sisa gate: PDF terunggah via BRONE |
 | **1. Analisis** | Ringkasan perilaku modul repo acuan (fisika, goomba, item), daftar asumsi | Dokumen ringkasan disetujui |
 | **2. Fondasi video** | `clk_gen`, `reset_sync`, `vga_timing`, `scaler`, pola uji warna, XDC, `build.tcl` | `SYN` WNS≥0 + **`BOARD`** gambar tampil di TV |
 | **3. Aset** | `sprites2vhdl.py`, palet, ROM sprite/tile/font/level | `SIM` render statis benar |
@@ -517,7 +519,7 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 | **D-7** | Brief menyebut "satu ROM palet 16 entri" | **4 bank palet × 16 entri** (2 bit bank-select per sprite) | 15 warna terpakai terlalu sempit untuk 17 jenis aset; kegagalan baru terlihat di fase aset | Builder, 2026-10-19 |
 | **D-8** | Input hanya keyboard + mouse | Tambah **jalur cadangan** `sw[15:12]` + `btnU` sebagai demo fallback | Mitigasi risiko satu titik kegagalan PS/2 pada demo ternilai | Builder, 2026-10-19 |
 | **D-9** | Mouse "wajib untuk menu" | Mouse **de-scoped ke fitur opsional 4b** | Satu pasangan PS/2 tidak addressable; mouse & keyboard tidak bisa dibedakan dari framing | Builder, 2026-10-19 |
-| **D-10** | Brief menyebut fixed-point "mis. Q8.8" | **Q12.8 untuk posisi**, Q8.8 untuk kecepatan | Q8.8 saturasi di ±127,996; level butuh sampai 3392 px | Builder, 2026-10-19 |
+| **D-10** | Brief menyebut fixed-point "mis. Q8.8" | **Q13.8 untuk posisi**, Q8.8 untuk kecepatan | Q8.8 saturasi di ±127,996; level butuh sampai 3392 px. Sempat ditulis Q12.8, tetapi 20-bit signed hanya mencapai ±2.047,996 → **dikoreksi ke Q13.8 (21-bit)** 2026-10-22 | Builder, 2026-10-19; koreksi 2026-10-22 |
 
 ---
 

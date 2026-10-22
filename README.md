@@ -30,8 +30,10 @@ The design is defined by what it deliberately leaves out:
 - **No derived clocks.** A single MMCM output feeds the entire design; slower
   rates are expressed as clock enables, which keeps timing analysis honest.
 - **No floating point.** Position and velocity are fixed-point integers
-  (Q12.8 for world position, Q8.8 for velocity), because `real` is not
-  synthesisable and never will be.
+  (Q13.8 for world position, Q8.8 for velocity), because `real` is not
+  synthesisable and never will be. Q13.8 is 21-bit signed — 12 integer bits
+  give ±4095.996 px, enough for a 3392 px level; a 20-bit Q12.8 would saturate
+  at ±2047.996.
 
 The renderer is designed around a 384×216 logical resolution upscaled by an
 exact integer factor of 5 to 1920×1080. That trades 25× of pixel work for a
