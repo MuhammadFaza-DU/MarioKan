@@ -314,6 +314,10 @@ Pemilik menanyakan dua hal yang perlu dibuktikan, bukan diyakinkan:
   (proses `astro preview` PID 2324 di `WEBB\gamein`).
 - Rename folder project sendiri juga gagal karena dikunci session yang sedang
   berjalan → dilakukan bersamaan saat rename induk nanti.
+  > **Update 2026-10-22:** rename induk **SUDAH SELESAI**.
+  > `D:\Progamming\Project dan SourceCode` -> `D:\Progamming\Project-SourceCode`.
+  > Path repo sekarang **tidak mengandung spasi**, jadi masalah pemecahan argumen
+  > Vivado di atas sudah tidak berlaku. Workaround `[list $path]` tetap dipakai.
 
 **Keputusan**
 - Audio **ditunda** ke pengembangan lanjutan (deviasi resmi dari brief —

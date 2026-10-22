@@ -4,7 +4,7 @@ Dokumen ini **aturan tambahan** untuk project ini. `AGENTS.md` global
 (`~/.config/opencode/AGENTS.md`) tetap berlaku penuh dan **berkedudukan lebih
 tinggi**. Jika ada konflik: global menang, lalu aturan di file ini.
 
-Root project: `D:\Progamming\Project dan SourceCode\VHDL\Project-Terakhir-SDL`
+Root project: `D:\Progamming\Project-SourceCode\VHDL\Project-Terakhir-SDL`
 
 ---
 

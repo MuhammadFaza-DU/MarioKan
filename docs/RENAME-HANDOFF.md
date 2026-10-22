@@ -1,8 +1,15 @@
 # Catatan Serah-Terima — Rencana Rename Folder Induk
 
 **Tanggal:** 2026-10-22
-**Status:** **BELUM DIKERJAKAN.** Tidak ada satu pun perubahan pada filesystem.
+**Status:** **SELESAI DIEKSEKUSI 2026-10-22.** Folder sudah bernama `Project-SourceCode`.
 **Tujuan:** `D:\Progamming\Project dan SourceCode` → `D:\Progamming\Project-SourceCode`
+
+> **Hasil eksekusi (2026-10-22):** rename berhasil, isi identik (236.764 file /
+> 12.642.011.776 byte, delta 0). 32 file referensi diperbaiki (54 kemunculan):
+> 21 fungsional + 11 dokumentasi. File bukti historis & cache sengaja TIDAK
+> diubah (lihat 3.3). Penyebab kegagalan sesi sebelumnya terkonfirmasi: handle
+> terbuka pada rantai folder (root, `VHDL`, `Project-Terakhir-SDL`) yang hilang
+> setelah proses pemegangnya berhenti.
 
 > Dokumen ini ditulis oleh sesi yang **menghentikan** pekerjaan sebelum eksekusi,
 > atas permintaan pemilik. Isinya: fakta yang sudah diverifikasi, jebakan yang
