@@ -61,7 +61,7 @@ dokumen **lokal**, tidak di-commit ke repo publik).
 | D1 — RTL + bitstream | Semua modul §4.4, `build.tcl`, XDC, bitstream | belum ada |
 | D2 — Laporan kuliah | Dokumen akademik terpisah dari PRD | belum ada |
 | D3 — Slide / video demo | Materi presentasi + rekaman board | belum ada |
-| D4 — Dokumentasi teknis | `PORTING_NOTES.md`, diagram arsitektur, `checkpoint.md` | sebagian |
+| D4 — Dokumentasi teknis | `PORTING_NOTES.md`, diagram arsitektur, `CHECKPOINTS.md` | sebagian |
 
 Bobot rubrik D0: kesesuaian judul **20%**, tujuan & fungsi **25%**, cara kerja &
 I/O **25%**, **kelayakan implementasi 30%**. Komponen terbesar justru punya
@@ -341,7 +341,7 @@ src/
 constraints/basys3.xdc
 tools/sprites2vhdl.py, tools/build.tcl
 sim/tb_*.vhd
-docs/PRD.md, docs/PORTING_NOTES.md, docs/checkpoint.md
+docs/PRD.md, docs/PORTING_NOTES.md, CHECKPOINTS.md
 ```
 
 **Audio** (`audio_synth.vhd`, `sfx_rom.vhd`, `bgm_rom.vhd`, `pwm_dac.vhd`)
@@ -513,7 +513,7 @@ pipa, tangga akhir, tiang bendera.** Format level harus mudah diubah
 | **D-1** | Audio wajib: 3 kanal synth, SFX, BGM, PWM ke Pmod | **Ditunda** ke pengembangan lanjutan; desain tetap didokumentasikan | Hardware audio belum tersedia; tidak bisa dibuktikan bersuara | Pemilik, 2026-10-19 |
 | **D-2** | `Ide-awal.md` = sumber requirement | **Digantikan** PRD ini; `Ide-awal.md` hanya referensi teknis | Dokumen awal tidak berbasis brief tugas akhir | Pemilik, 2026-10-19 |
 | **D-3** | 1080p wajib | **Dipertahankan** 1080p, dengan fallback 720p lewat generic | 1080p terbukti layak (`SYN` WNS +4,041 ns pada probe) | Pemilik, 2026-10-19 |
-| **D-4** | — (tidak dibahas) | Progres dilacak di `docs/checkpoint.md`, bukan knowledge graph | Proyek tidak berjangka panjang/masif | Pemilik, 2026-10-19 |
+| **D-4** | — (tidak dibahas) | Progres dilacak di `CHECKPOINTS.md`, bukan knowledge graph | Proyek tidak berjangka panjang/masif | Pemilik, 2026-10-19 |
 | **D-5** | — (tidak dibahas) | Kontributor hanya menyentuh `docs/` + `sim/` | Interface RTL harus dikunci agar tidak regresi | Pemilik, 2026-10-19 |
 | **D-6** | Peringatan mouse+keyboard | **Diperkuat**: keyboard adalah jalur utama, mouse opsional | Hanya 1 port USB-HID; hub belum tersedia | PRD |
 | **D-7** | Brief menyebut "satu ROM palet 16 entri" | **4 bank palet × 16 entri** (2 bit bank-select per sprite) | 15 warna terpakai terlalu sempit untuk 17 jenis aset; kegagalan baru terlihat di fase aset | Builder, 2026-10-19 |

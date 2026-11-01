@@ -131,6 +131,7 @@ Evidence levels used throughout this repository:
 ## Repository layout
 
 ```
+CHECKPOINTS.md      Work log and current status
 src/                VHDL RTL                        (in progress)
 constraints/        Basys 3 XDC                      (in progress)
 sim/                VHDL testbenches                 (in progress)
@@ -140,7 +141,6 @@ tools/
   make_diagram.py        Generates the proposal block diagram (PNG)
 docs/
   PRD.md            Specification — authoritative requirements
-  checkpoint.md     Work log and current status
   diagram/          Generated diagrams
 ```
 
@@ -188,7 +188,7 @@ artifacts (`build/`, `*.bit`, `*.dcp`, `.Xil/`) are git-ignored.
 > ```
 >
 > `tools/build.tcl` already does this throughout. Verified behaviour; see
-> `docs/checkpoint.md`. The long-term fix is a checkout path without spaces.
+> `CHECKPOINTS.md`. The long-term fix is a checkout path without spaces.
 
 ## Contributing
 
