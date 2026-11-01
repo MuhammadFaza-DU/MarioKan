@@ -141,6 +141,7 @@ tools/
   make_diagram.py        Generates the proposal block diagram (PNG)
 docs/
   PRD.md            Specification — authoritative requirements
+  checkpoint.md     Legacy pointer to ../CHECKPOINTS.md
   diagram/          Generated diagrams
 ```
 
