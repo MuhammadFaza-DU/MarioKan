@@ -23,6 +23,10 @@ kritis untuk project ini** — jangan dilewati.
   modul benar/tidak) butuh **≥2 bukti saling mendukung** dari sumber berbeda
   (mis. laporan Vivado + simulasi). Satu bukti = indikasi sementara.
 - **Jangan mengarang isi repo/PDF/dokumen** yang tidak terbaca → tanya user.
+- **Pakai skill yang relevan (wajib).** Sebelum kerja, tentukan skill yang relevan
+  (Skill Plan) → muat lewat tool `skill` → pakai. Laporkan skill yang dipakai +
+  hasil verifikasinya; skill relevan yang sengaja dilewati wajib disebut alasannya
+  (1 baris). Ikuti alur context-matching global §1.6 (parent → sub-skill).
 - **Berpikir kritis & cek dampak sebelum mengubah.** Jangan merusak RTL/timing
   yang sudah lulus. Perubahan luas tanpa memahami struktur dulu = dilarang.
 - **Cek state dulu** (baca file/config yang ada) sebelum menambah/menghapus.
