@@ -4,15 +4,16 @@
 > (Current State → Change Log → Stable tags), lalu riwayat detail diarsipkan di
 > bagian bawah. Hanya **sesi utama (PM/controller)** yang menulis file ini.
 
-## Current State (2026-11-01)
+## Current State (2026-11-12)
 
-- **Done / commit:** D0 proposal final (`docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`, lokal); Q13.8 tersinkron di PRD + README; repo publik; dokumen akademik lokal-only; **setup ulang `AGENTS.md` (8 bagian) + `CHECKPOINTS.md` (skill `setup-early-project`)** → tag `stable-2026-11-01-v1`.
+- **Done / commit:** D0 proposal final (`docs/proposal/Proposal_P1_Muhammad Faza Difa'ulhaq.pdf`, lokal) **telah disetujui**, berdasarkan konfirmasi pemilik pada 2026-11-12 (tanggal persetujuan sebenarnya tidak disebutkan); Q13.8 tersinkron di PRD + README; repo publik; dokumen akademik lokal-only; **setup ulang `AGENTS.md` (8 bagian) + `CHECKPOINTS.md` (skill `setup-early-project`)** → tag `stable-2026-11-01-v1`.
 - **In progress:** —
-- **Blocked:** RTL Fase 1+ belum mulai; bukti PIC24/mouse (Q-8) & konfirmasi tanggal D0 (Q-10) belum ada; judul belum disetujui dosen.
-- **Next:** Fase 1 (analisis modul repo acuan `FPGA-Mario`) → Fase 2 (fondasi video: `clk_gen`/`reset_sync`/`vga_timing`/`scaler` + XDC + pola uji).
+- **Blocked / belum selesai:** Fase 1+ belum mulai; bukti PIC24/mouse (Q-8) & konfirmasi tanggal pengumpulan D0 (Q-10) belum ada. Persetujuan proposal tidak lagi menjadi penghalang.
+- **Next:** Susun dokumen **Proyek 2: Perancangan Arsitektur** berdasarkan proposal yang telah disetujui dan ketentuan `Proyek 2.pdf`. Urutan pengembangan RTL tetap Fase 1 (analisis modul repo acuan `FPGA-Mario`) → Fase 2 (fondasi video: `clk_gen`/`reset_sync`/`vga_timing`/`scaler` + XDC + pola uji).
 
 ## Change Log (newest first)
 
+- 2026-11-12 - Pemilik mengonfirmasi **proposal Proyek 1 telah disetujui**; status menunggu persetujuan ditutup dan langkah berikutnya diarahkan ke dokumen Proyek 2. Sumber status: konfirmasi pemilik, bukan pemeriksaan BRONE; tanggal persetujuan sebenarnya dan status unggah tidak diverifikasi. Tidak ada perubahan RTL atau pengujian SIM/SYN/BOARD baru. Checkpoint yang disetujui pemilik: `stable-2026-11-12-v1`.
 - 2026-11-01 — Setup ulang `AGENTS.md` (8 bagian, delta) + `CHECKPOINTS.md` (skill `setup-early-project`); log lama dipindah ke arsip — `tag stable-2026-11-01-v1`
 - 2026-10-22 — Q12.8 → Q13.8 disinkronkan ke PRD + README; status D0 final — `c5936e3`
 - 2026-10-22 — Catat hasil rename folder induk (`Project dan SourceCode` → `Project-SourceCode`) + perbarui path — `e976c8f`
@@ -30,6 +31,7 @@
 
 ## Stable tags (if git)
 
+- `stable-2026-11-12-v1` - persetujuan proposal Proyek 1 berdasarkan konfirmasi pemilik; langkah berikutnya dokumen Proyek 2. Hanya perubahan `CHECKPOINTS.md`.
 - `stable-2026-10-22-v3` — proposal final (rename + metadata bersih) + Q13.8 sinkron di PRD & README (`bdc7780`)
 - `stable-2026-10-22-v2` — rename folder induk `Project dan SourceCode` → `Project-SourceCode` (`4b44d40`)
 - `stable-2026-10-22-v1` — handoff rename: audit lengkap, eksekusi dihentikan tanpa perubahan (`f3836c7`)
