@@ -7,9 +7,9 @@
 | **Pemilik RTL** (Muhammad Faza) | semua: `src/`, `constraints/`, `sim/`, `tools/`, `docs/` |
 | **Kontributor** (teman) | `docs/`, `sim/` (testbench), laporan uji papan. **Tidak** mengubah `src/` atau `constraints/` |
 
-Alasan pembatasan ini: interface antar-modul RTL dikunci oleh PRD. Perubahan
-RTL dari banyak orang tanpa kontrak interface yang ketat = konflik dan regresi
-timing yang sulit dilacak.
+Alasan pembatasan ini: requirement mengikuti PRD; rincian antarmuka yang masih
+usulan harus dikunci sebelum RTL terkait. Perubahan RTL dari banyak orang
+tanpa kontrak yang ketat berisiko konflik dan regresi timing.
 
 Kalau kamu ingin mengusulkan perubahan RTL: buka **issue** dengan usulan +
 alasan, jangan langsung PR.
@@ -21,15 +21,12 @@ alasan, jangan langsung PR.
 3. Buka Pull Request ke `main`. Sertakan: apa yang diubah, kenapa, dan bukti.
 4. Pemilik repo me-review. Merge hanya setelah CI/cek manual lolos.
 
-> **Catatan jujur soal penegakan aturan:** repo ini **private** pada akun GitHub
-> Free, sehingga **branch protection dan rulesets tidak dapat diaktifkan**
-> (GitHub mengembalikan HTTP 403). Artinya aturan "jangan push langsung ke
-> `main`" di atas adalah **konvensi, bukan paksaan teknis**. Semua collaborator
-> secara teknis masih bisa push langsung ke `main`.
->
-> Mohon dipatuhi secara sukarela. Bila ingin dipaksakan, pilihannya: (a) upgrade
-> akun ke GitHub Pro, atau (b) jadikan repo publik setelah tugas selesai.
-> Pemilik repo akan memeriksa riwayat `main` bila terjadi masalah.
+> **Status penegakan:** repo sudah **publik**, dikonfirmasi ulang lewat API
+> GitHub pada 2026-11-12 (`private:false`, `visibility:public`). HTTP 403 yang
+> pernah dicatat berasal dari saat repo masih private; jangan dianggap status
+> sekarang. Branch protection/ruleset/CODEOWNERS aktif **belum diverifikasi**.
+> Sampai ada bukti pengaturan aktual, alur review dan larangan push langsung
+> merupakan konvensi kerja, bukan jaminan pembatasan teknis.
 
 ## Peran collaborator
 
@@ -65,6 +62,14 @@ Kalau belum dites: tulis "belum dites" + cara mengetesnya.
 
 - Artefak build (`build/`, `*.bit`, `*.dcp`, `*.rpt`, `.Xil/`)
 - Salinan repo sumber di `reference/`
+- Dokumen akademik di `docs/brief/`, `docs/proposal/`, `docs/rubrik.md` dan generator akademik lokal
+- Diagnostik sementara di `.tmp/` serta kandidat diagram yang ditolak/diabaikan pada `.gitignore`
 - Data pribadi / kredensial
 
 Sudah diatur di `.gitignore`. Kalau kamu menemukan file yang lolos, laporkan.
+
+Checkpoint memakai daftar file publik eksplisit dan pemeriksaan index, bukan
+`git add -A` tanpa audit. Commit/tag tidak otomatis memberi izin push.
+Jalankan `python -B tools/check_project_notes.py` sebelum checkpoint untuk
+memeriksa catatan aktif dan batas lokal-only. Status kerja hanya di
+`CHECKPOINTS.md`; laporan lama dibaca sebagai riwayat, bukan status terkini.

@@ -21,11 +21,20 @@ vivado_pid*.str
 .tmp/
 reference/
 
+# Kandidat diagram yang tidak diadopsi; disimpan lokal, bukan master aktif
+docs/diagram/architecture-v2.json
+docs/diagram/arsitektur-draft.png
+docs/diagram/arsitektur-draft.svg
+tools/make_architecture_v2.py
+tools/tests/test_architecture_v2.py
+
 # Dokumen akademik — disimpan lokal saja, tidak masuk repo publik
 docs/rubrik.md
 docs/brief/
 docs/proposal/
 tools/make_proposal.py
+/Proposal_P1_Muhammad Faza Difaulhaq.pdf
+/Proyek 2.pdf
 
 # Python
 __pycache__/

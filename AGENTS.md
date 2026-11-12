@@ -57,7 +57,9 @@ kritis untuk project ini** — jangan dilewati.
 | Arsitektur | Tanpa framebuffer (racing-the-beam), tanpa soft CPU, tanpa derived clock (pakai CE), BRAM read sinkron |
 | Fixed-point | Posisi **Q13.8** (21-bit, ±4095,996 px); kecepatan **Q8.8** |
 | Palet | **4 bank × 16 × 12-bit**, 2-bit bank-select per sprite (D-7) |
-| Input | Keyboard PS/2 **wajib**; mouse = fitur opsional `4b` (D-9); fallback `sw[15:12]` + `btnU` (D-8) |
+| Input | **Dua jalur kendali penuh wajib:** keyboard USB melalui PIC24/PS/2 dan lima tombol papan; pemain boleh memakai salah satunya (D-13). Kedua pemetaan beserta tekan/tahan disetujui terpisah 2026-11-12 (D-13/D-15), lihat `docs/INPUT_GUIDE.md`; mouse tetap opsional `4b` |
+| Reset kendali | **sw[0] = 1 menahan reset sesi; kembali 0 menuju menu**, bukan langsung bermain. START berikutnya: tiga nyawa, skor/koin nol, waktu/blok awal; high score dipertahankan selama papan menyala (D-14, disetujui 2026-11-12). `btnC` tetap konfirmasi/pause, bukan reset; jangan samakan reset sesi dengan respawn |
+| Diagram umum | **`docs/diagram/arsitektur.drawio` adalah sumber utama**, disetujui pemilik lewat screenshot draw.io 2026-11-12 (D-16). Hitam-putih, label English singkat, Player/Enemy/Items terpisah. Ekspor gambar harus dari draw.io; jangan kembali ke SVG/image generator atau kandidat detail yang ditolak. Satu blok fungsi tidak selalu satu entity VHDL |
 | Audio | **Ditunda** ke pengembangan lanjutan (D-1) |
 | Respawn | Tilemap **tidak** reset; score/coins tetap; time/posisi/enemy reset; nyawa −1 (awal 3) |
 | Peran kontributor | Hanya `docs/` + `sim/`; **tidak** menyentuh `src/` / `constraints/` (D-5) |
@@ -118,8 +120,18 @@ konfirmasi user.**
 1. `CHECKPOINTS.md` — posisi kerja terkini (selalu pertama).
 2. `docs/PRD.md` — sumber kebenaran requirement.
 3. `README.md` — ringkas arsitektur & status bukti.
-4. `docs/PORTING_NOTES.md` (bila ada) / `docs/diagram/arsitektur.svg`.
+4. `docs/PORTING_NOTES.md` (bila ada) / `docs/diagram/arsitektur.drawio` (sumber diagram aktif; SVG lama hanya legacy).
 5. `docs/brief/ide-awal.md` + `docs/rubrik.md` (lokal, referensi — **bukan** requirement).
+
+Sebelum mengubah/menyimpulkan: baca `docs/LESSONS.md`. Untuk pekerjaan P2,
+baca sumber lokal `docs/proposal/proyek-2/REVIEW.md`, `RENCANA_KERJA.md` dan
+`RANCANGAN_TEKNIS.md`; review modul awal adalah arsip, bukan status akhir.
+Diagnostik terpisah ada di `.tmp/diagnostics/`, bukan RTL game produksi.
+Catatan bertanggal/arsip tidak ditulis ulang agar tampak sebagai status baru.
+Untuk Update File multi-hunk: simpan draf patch di `.tmp/`, jalankan
+`python -B tools/check_patch.py <draf-patch>`, baru kirim ke tool patch.
+Preflight menolak no-op, konteks salah dan urutan mundur; bukan pengganti
+verifikasi hasil atau penjaga global otomatis.
 
 **Sumber kebenaran requirement:** `docs/PRD.md` menang atas brief; perbedaan
 wajib tercatat di PRD §6. Requirement baru dari dosen/user → update PRD dulu,
@@ -155,18 +167,29 @@ terverifikasi, dan apa yang belum.
   penting dibuat/dihapus, keputusan diambil/diubah). Bukan whitespace, typo
   komentar, atau eksperimen yang dibuang sebelum commit.
 - **Jangan** commit/push tanpa izin eksplisit user.
+- Izin checkpoint lokal = commit + tag; **bukan izin push**. Tag Git hanya
+  mencakup file publik yang diaudit, bukan materi lokal-only. Bila membuat
+  arsip lokal pendamping, simpan di `.tmp/checkpoints/`, verifikasi manifest
+  hash dan jangan masukkan ZIP/diagnostik/akademik ke index.
 - Prosedur (setelah izin):
 
 ```powershell
-git add -A
+python -B tools/check_project_notes.py
+git diff --check
+# Pilih daftar file publik eksplisit; contoh, bukan seluruh cakupan:
+git add -- CHECKPOINTS.md README.md docs/PRD.md
+git diff --cached --name-only
+git diff --cached --check
 git commit -m "<pesan jelas>"
 git tag -a stable-YYYY-MM-DD-vN -m "<ringkasan titik stabil>"
-git push
-git push origin stable-YYYY-MM-DD-vN
+# Hanya jika push juga diizinkan:
+# git push
+# git push origin stable-YYYY-MM-DD-vN
 ```
 
 - Tanggal: `Get-Date -Format "yyyy-MM-dd"`; nomor `N` dihitung dari tag hari itu
-  (`git tag -l "stable-<tanggal>-v*"`). Verifikasi: `git tag -l` dan
-  `git ls-remote --tags origin`.
+  (`git tag -l "stable-<tanggal>-v*"`). Verifikasi lokal: tag menunjuk commit
+  HEAD yang dimaksud dan index bersih. Jika push diizinkan/dijalankan, cek
+  pula `git ls-remote --tags origin`; tanpa push, jangan klaim tag ada di remote.
 - Log Vivado (`vivado*.log`) muncul di cwd → jalankan build dari `.tmp/build/`,
   jangan dari root repo.

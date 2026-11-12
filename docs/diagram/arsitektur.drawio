@@ -1,0 +1,148 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="mariokan-system" name="System Architecture">
+    <mxGraphModel dx="1169" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame_fpga" value="FPGA (Basys 3)" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=#000000;strokeWidth=1;dashed=1;fontFamily=Arial;fontSize=16;fontColor=#000000;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="170" y="70" width="850" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="io_clock" value="100 MHz Clock" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="110" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="io_reset" value="Reset Switch&#xa;sw[0]" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="180" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="io_keyboard" value="USB Keyboard&#xa;(via PIC24)" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="250" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="io_buttons" value="Five Board&#xa;Buttons" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="330" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="io_monitor" value="VGA Monitor" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="425" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="io_status" value="LEDs /&#xa;Seven-Segment" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_clock_reset" value="Clock &amp; Reset" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="110" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_input" value="Input Processing" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="230" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_control" value="Game Controller" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="450" y="230" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_player" value="Player" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="450" y="365" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_enemy" value="Enemy" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="450" y="475" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_items" value="Items / Blocks" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="450" y="585" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_collision" value="Collision Detection" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="675" y="425" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_game_data" value="Game Data" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="660" y="110" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_level" value="Level Memory" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="675" y="615" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_assets" value="Asset Memory" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="860" y="615" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_video" value="Video Generator" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="860" y="425" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_status" value="Status Display" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="860" y="110" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="note_clock" value="Common clock and boot reset are supplied to all internal modules." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="695" width="760" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="note_reset" value="Session reset returns to the menu and preserves the high score." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="720" width="760" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="note_scope" value="Proposed functional architecture. Two-headed arrows represent exchanges over separate directed signals.&#xa;Optional mouse support and deferred audio are not included in the baseline diagram." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="170" y="770" width="980" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_clock" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="io_clock" target="mod_clock_reset">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reset_input" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.8;" edge="1" parent="1" source="io_reset" target="mod_clock_reset">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="190" y="205" /><mxPoint x="190" y="158" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e_keyboard" value="PS/2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.375;" edge="1" parent="1" source="io_keyboard" target="mod_input">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="0" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_buttons" value="Buttons" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" edge="1" parent="1" source="io_buttons" target="mod_input">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="200" y="360" /><mxPoint x="200" y="290" /></Array><mxPoint x="-12" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_actions" value="Actions" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5714;" edge="1" parent="1" source="mod_input" target="mod_control">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="0" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_session_reset" value="Session Reset" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.2143;" edge="1" parent="1" source="mod_clock_reset" target="mod_control">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="140" /><mxPoint x="420" y="245" /></Array><mxPoint x="-40" y="-5" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_player_control" value="Control / State" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.25;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_control" target="mod_player">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="490" y="335" /><mxPoint x="420" y="335" /><mxPoint x="420" y="395" /></Array><mxPoint x="-55" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_enemy_control" value="Control / State" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_control" target="mod_enemy">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="530" y="345" /><mxPoint x="410" y="345" /><mxPoint x="410" y="505" /></Array><mxPoint x="-55" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_item_control" value="Control / State" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.75;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_control" target="mod_items">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="570" y="355" /><mxPoint x="400" y="355" /><mxPoint x="400" y="615" /></Array><mxPoint x="-55" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_player_collision" value="State / Hits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" edge="1" parent="1" source="mod_player" target="mod_collision">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="625" y="395" /><mxPoint x="625" y="445" /></Array><mxPoint x="15" y="12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_enemy_collision" value="State / Hits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_enemy" target="mod_collision">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="615" y="505" /><mxPoint x="615" y="465" /></Array><mxPoint x="25" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_item_collision" value="State / Hits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" edge="1" parent="1" source="mod_items" target="mod_collision">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="610" y="615" /><mxPoint x="610" y="485" /></Array><mxPoint x="30" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_game_events" value="Game Events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=1;entryY=0.9286;" edge="1" parent="1" source="mod_collision" target="mod_control">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="750" y="310" /><mxPoint x="610" y="310" /></Array><mxPoint x="0" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_game_data" value="Events / Status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0.3;entryY=1;" edge="1" parent="1" source="mod_control" target="mod_game_data">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="530" y="200" /><mxPoint x="705" y="200" /></Array><mxPoint x="0" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_hud_data" value="HUD Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.7;exitY=1;entryX=0.8571;entryY=0;" edge="1" parent="1" source="mod_game_data" target="mod_video">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="765" y="215" /><mxPoint x="1010" y="215" /><mxPoint x="1010" y="400" /><mxPoint x="980" y="400" /></Array><mxPoint x="-20" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_render_state" value="Render State" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.4286;entryX=0.5;entryY=0;" edge="1" parent="1" source="mod_control" target="mod_video">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="930" y="260" /></Array><mxPoint x="-50" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_level_start" value="New Game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.7143;entryX=1;entryY=0.25;" edge="1" parent="1" source="mod_control" target="mod_level">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="850" y="280" /><mxPoint x="850" y="630" /></Array><mxPoint x="-50" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_block_update" value="Block Updates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.6667;" edge="1" parent="1" source="mod_items" target="mod_level">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="630" y="615" /><mxPoint x="630" y="655" /></Array><mxPoint x="0" y="35" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_tile_data" value="Tile Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="mod_collision" target="mod_level">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="-45" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_map_access" value="Map Access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.6667;entryX=0.2;entryY=1;" edge="1" parent="1" source="mod_level" target="mod_video">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="840" y="655" /><mxPoint x="840" y="550" /><mxPoint x="888" y="550" /></Array><mxPoint x="50" y="5" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_asset_access" value="Asset Access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;startArrow=classic;startFill=1;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=0.8;exitY=0;entryX=0.8;entryY=1;" edge="1" parent="1" source="mod_assets" target="mod_video">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="55" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_status_data" value="Status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;fontFamily=Arial;fontSize=13;fontColor=#000000;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5833;" edge="1" parent="1" source="mod_game_data" target="mod_status">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="0" y="-12" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e_status_output" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_status" target="io_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_vga_output" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=classic;endFill=1;strokeColor=#000000;strokeWidth=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="mod_video" target="io_monitor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

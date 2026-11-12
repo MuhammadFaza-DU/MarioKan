@@ -108,9 +108,9 @@ txt(600, 68, "single clock domain  ·  locked → reset_sync  ·  game logic adv
 # ---- baris masukan ----
 IX = [140, 500, 860]
 IW = 300
-box(IX[0], 132, IW, 64, C_IN, "PS/2 keyboard", "primary input path")
+box(IX[0], 132, IW, 64, C_IN, "PS/2 keyboard", "required full control path")
 box(IX[1], 132, IW, 64, C_IN, "PS/2 mouse", "optional · unverified")
-box(IX[2], 132, IW, 64, C_IN, "switches · buttons", "demo fallback")
+box(IX[2], 132, IW, 64, C_IN, "5 board buttons", "required full control path")
 stage_label(164, "INPUT")
 
 for x in IX:
@@ -139,7 +139,7 @@ arrow(600, 512, 600, 556)
 
 # ---- gameplay ----
 box(140, 556, 1020, 64, C_GAME,
-    "player · enemy_goomba · items · collision · hud_text", "Q12.8 position · Q8.8 velocity")
+    "player · enemy_goomba · items · collision · hud_text", "Q13.8 position · Q8.8 velocity")
 stage_label(588, "GAMEPLAY")
 
 arrow(600, 620, 600, 660)
@@ -159,7 +159,7 @@ stage_label(796, "RENDER")
 arrow(600, 828, 600, 868)
 
 # ---- keluaran ----
-box(340, 868, 520, 64, C_OUT, "RGB444  →  VGA  →  HDMI  →  display", "hsync · vsync · de")
+box(340, 868, 520, 64, C_OUT, "RGB444  →  VGA  →  monitor", "hsync · vsync · de internal")
 stage_label(900, "OUTPUT")
 
 # ---- catatan ----
@@ -170,12 +170,12 @@ txt(600, 994,
     "All video outputs are registered together to keep sync and data aligned.",
     13.5, weight="400", color=MUTED)
 txt(600, 1016,
-    "Mouse support depends on evidence of a separate PS/2 path; keyboard is the guaranteed input.",
+    "Keyboard and board buttons are required; mouse remains optional and unverified.",
     13.5, weight="400", color=MUTED)
 
 add("</svg>")
 
 os.makedirs(OUT_DIR, exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as f:
+with open(OUT, "w", encoding="utf-8", newline="\n") as f:
     f.write("\n".join(parts))
 print("tersimpan:", OUT)
