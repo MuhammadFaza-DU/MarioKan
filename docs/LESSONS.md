@@ -177,3 +177,11 @@
 - **Dampak:** Pembaruan ditolak; tidak ada perubahan parsial yang diteruskan sebagai berhasil. Bukan alasan mengubah isi requirement atau memakai penulisan ulang seluruh file.
 - **Aturan baru:** Urutkan hunk sesuai posisi sumber dan pecah patch yang panjang. Gunakan preflight multi-hunk serta tetap periksa state setelah kegagalan.
 - **Verifikasi:** Patch terurut diterima. Tes test_rejects_backwards_hunks menolak urutan mundur, sementara test_accepts_real_changes_in_source_order menerima perubahan sah. Suite preflight empat tes lulus; checker catatan aktif juga lulus setelah status diperbarui.
+
+## L-023: Pemeriksaan publikasi bergantung pada pasangan data dan blacklist parsial
+
+- **Salah:** Tes publikasi awal membandingkan PNG hanya dengan hash dalam manifest yang bisa diedit bersamanya. Pemeriksaan tautan memakai blacklist direktori dan tidak mencakup `docs/rubrik.md` yang di-ignore.
+- **Bukti:** Review 2026-11-13 menemukan kedua celah; reproduksi di memori pada sesi utama menerima PNG+manifest yang diubah bersama dan tautan rubrik lokal. Kedua input negatif tidak ditolak sebelum perbaikan.
+- **Dampak:** Suite bisa hijau walaupun ekspor bukan byte yang disetujui atau README menautkan file yang tidak tersedia pada checkout publik. Tidak ada file akademik yang diunggah atau master diagram yang diubah.
+- **Aturan baru:** Identitas artefak yang disetujui dipin ke hash independen. Tautan lokal diperiksa terhadap batas root, keberadaan file dan `git check-ignore --no-index`, bukan blacklist parsial saja. Uji hasil checker dengan input negatif sebelum mengandalkannya untuk publikasi.
+- **Verifikasi:** Reproduksi yang sama berubah gagal→lulus: kedua mutasi ditolak. Suite 15 tes tooling lokal tetap lulus; snapshot publik diuji terpisah sebelum commit. Ini verifikasi dokumentasi/tooling, bukan SIM/SYN/BOARD baru.

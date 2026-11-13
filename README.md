@@ -1,16 +1,23 @@
 # MarioKan
 
-**A planned hardware game engine for FPGA.** MarioKan is being designed as a
-2D platformer implemented entirely in programmable logic, without a CPU or
-operating system. The game RTL is not implemented yet; current evidence is
-limited to the probes listed below.
+MarioKan is a planned 2D platformer in VHDL for the Digilent Basys 3.
+The intended game implements physics, collision and video in FPGA logic,
+without a soft CPU or operating system.
 
-[![Target](https://img.shields.io/badge/target-Basys%203%20%C2%B7%20XC7A35T--1-informational)](#hardware-target)
-[![HDL](https://img.shields.io/badge/HDL-VHDL--2008-informational)](#)
-[![Toolchain](https://img.shields.io/badge/toolchain-Vivado%202026.1-informational)](#)
-[![Video](https://img.shields.io/badge/video-1920%C3%971080%20%40%2060%20Hz-informational)](#video-pipeline)
+> **Current stage: architecture and standalone probes.** Production game RTL
+> is not implemented yet. There is no playable game or functional BOARD
+> verification to download; the evidence below is limited to separate probes.
 
----
+[Architecture](#architecture) · [Verified progress](#project-status) ·
+[Planned controls](#planned-game-and-controls) · [Documentation](#documentation) ·
+[Build and checks](#building)
+
+![MarioKan functional architecture with separate Player, Enemy and Items blocks, keyboard and board controls, memory, VGA and status outputs](docs/diagram/arsitektur.png)
+
+Functional architecture approved on 2026-11-12, exported by draw.io.
+[Editable draw.io source](docs/diagram/arsitektur.drawio) ·
+[Export provenance and hashes](docs/diagram/arsitektur-export.json).
+This is a design diagram, not a synthesized netlist or game screenshot.
 
 ## Overview
 
@@ -35,8 +42,8 @@ The design is defined by what it deliberately leaves out:
 - **No derived clocks.** A single MMCM output feeds the entire design; slower
   rates are expressed as clock enables, which keeps timing analysis honest.
 - **No floating point.** Position and velocity are fixed-point integers
-  (Q13.8 for world position, Q8.8 for velocity), because `real` is not
-  synthesisable and never will be. Q13.8 is 21-bit signed — 12 integer bits
+  (Q13.8 for world position, Q8.8 for velocity), rather than synthesized
+  floating-point arithmetic. Q13.8 is 21-bit signed; 12 integer bits
   give ±4095.996 px, enough for a 3392 px level; a 20-bit Q12.8 would saturate
   at ±2047.996.
 
@@ -44,6 +51,34 @@ The renderer is planned around a 384×216 logical resolution upscaled by an
 exact integer factor of 5 to 1920×1080. Reusing logical pixels may reduce
 work, but does not automatically provide 25 consecutive clocks per fetch.
 ROM/port scheduling and integrated timing still need verification.
+
+## Planned game and controls
+
+The game starts at a menu. START initializes one complete level; the player
+walks, runs and jumps past Goombas, collects coins and power-ups, and reaches
+the flagpole to clear the level. Pause, death/respawn and game-over states
+are part of the design. Up to four additional maps are optional, not part
+of the minimum delivery. Audio is deferred and mouse support is optional.
+
+Both control paths must eventually support the complete game independently.
+These are approved mappings, **not controls demonstrated on a working game**.
+
+| Action | Basys 3 buttons | External USB keyboard via PIC24/PS/2 |
+|---|---|---|
+| Menu up/down | Up/down | Up/down arrows |
+| Confirm / START | Center | Enter |
+| Move | Hold left/right | Hold left/right arrows or A/D |
+| Variable-height jump | Up | Space, up arrow or W |
+| Run / fire when FIRE | Down | Left Shift or Z |
+| Pause / resume | Center | P or Esc |
+
+Jump and fire require a new press; holding jump does not trigger another
+jump on landing, and holding fire does not auto-repeat. Holding the action
+button with a direction runs. `sw[0]=1` holds session reset; returning it to
+`0` opens the menu. The next START restores three lives, zero score/coins,
+initial time and map state. High score survives session reset, not power-off
+or reprogramming. Respawn instead retains score, coins and changed tiles.
+See the [input guide](docs/INPUT_GUIDE.md) for physical connections and examples.
 
 ## Hardware target
 
@@ -60,15 +95,9 @@ ROM/port scheduling and integrated timing still need verification.
 | External memory | None usable |
 
 For the five on-board buttons and external USB keyboard connection, see the
-[Input guide](docs/INPUT_GUIDE.md). The board-button mapping and press/hold
-behavior were approved on 2026-11-12. Session reset was approved separately:
-`sw[0]=1` holds reset, returning it to `0` opens the menu, and START begins a
-fresh game with three lives, zero score/coins and initial time/map state.
-The stored high score is preserved by this switch reset, but is not persistent
-across power-off or reprogramming. The keyboard mapping and press/hold rules
-were also approved separately on 2026-11-12; see the input guide for keys and
-examples. Neither gameplay control path nor session reset is implemented yet.
-The separate raw-input diagnostic is not their implementation.
+[input guide](docs/INPUT_GUIDE.md). Neither gameplay control path nor session
+reset is implemented yet. The separate raw-input diagnostic is not their
+implementation; the laptop programmer cable does not forward laptop keystrokes.
 
 ## Video pipeline
 
@@ -91,8 +120,8 @@ clk 100 MHz ──► MMCME2_BASE ──► clk_pix 148.4375 MHz ──► vga_t
 ```
 
 Pixel coordinates are mapped to a 384×216 logical grid (48×27 tiles of 8×8),
-then scaled ×5. All video outputs — `hsync`, `vsync`, `de`, RGB — are
-registered together so they stay aligned.
+then scaled ×5. The planned pipeline registers `hsync`, `vsync`, `de` and RGB
+with the same latency to keep them aligned. Integrated video is not tested yet.
 
 ## Architecture
 
@@ -122,8 +151,12 @@ has actually been implemented.
 | Status Display | LED encoding and seven-segment scanning |
 
 Rendered report/README exports must come from the approved draw.io master.
-The report now embeds an official draw.io export; it is kept with the
-local-only academic document, not published here. The old
+The preview above is the same official export used in the local report.
+Its manifest records the unchanged master and image hashes. The academic
+document itself is not published. Shared clock/boot reset, frame/commit
+enables and return handshakes (map-ready/spawn, block-write-ready and
+game-event-ready) are detailed interfaces, not separately drawn connections.
+The old
 `docs/diagram/arsitektur.svg` and its generator are retained as legacy,
 not as the current architecture source. Rejected v2 candidates and their
 generator/tests are local-only and ignored; no file was deleted. Do not
@@ -154,12 +187,37 @@ Evidence levels used throughout this repository:
 | 148.4375 MHz pixel clock achievable on `-1` speed grade | `SYN` (archived probe) | `clk_pix` period 6.737 ns; final report **WNS +4.043 ns**, WHS +0.254 ns; 0 DRC findings |
 | Bitstream generation | `SYN` | 2.19 MB `.bit` produced |
 | Standalone input diagnostic (not game controls) | `SIM` / `SYN` | `tb_input_probe` passes; diagnostic at 148.4375 MHz: WNS +2.068 ns, WHS +0.128 ns, 99 LUT / 216 FF, 0 latch/DRC/critical warning; not programmed or physically tested yet |
-| Game RTL (video, input, gameplay, audio) | — | **not implemented yet** |
-| On-board verification | — | **not performed yet** |
+| Game RTL (video, input, gameplay) | No result | **not implemented yet** |
+| Functional board verification | No `BOARD` result | **not performed yet** |
 
 > There are two separate probes: the archived MMCM/counter and the newer raw
 > input diagnostic. Neither is the game. Their SIM/SYN evidence does not
 > establish physical input behavior, gameplay or a compatible VGA monitor.
+
+These are results from local probe reports. The probe sources, bitstreams
+and raw logs are not distributed in this public snapshot, so cloning the
+repository alone does not reproduce those hardware results. Next steps are
+physical input observation with the owner, a verified 1080p VGA monitor,
+and locking the open implementation parameters before production RTL.
+
+## Documentation
+
+The README stays in English. Detailed working notes retain their existing
+Indonesian or English text; their links below are part of the public repo.
+
+| Read next | What it covers |
+|---|---|
+| [Requirements and decisions](docs/PRD.md) | Scope, planned behavior, module hierarchy and open questions |
+| [Input guide](docs/INPUT_GUIDE.md) | Physical connections, approved board/keyboard mappings and reset semantics |
+| [Asset feasibility](docs/ASSET_FEASIBILITY.md) | Source PNG audit, palette/ROM plan and limits of memory estimates |
+| [Adaptation notes](docs/PORTING_NOTES.md) | Pinned-reference interface differences and what must be rewritten |
+| [Current progress and checkpoints](CHECKPOINTS.md) | Latest state, evidence limits and historical work log |
+| [Contributing](CONTRIBUTING.md) | Review workflow and the docs/simulation-only contributor boundary |
+
+The diagram and planned controls explain the system for coursework readers.
+The evidence table separates engineering results from goals for portfolio
+readers; contributors should read the requirements and contribution rules
+before changing files.
 
 ## Repository layout
 
@@ -175,7 +233,7 @@ tools/
   check_project_notes.py Active-note and public-checkpoint consistency guard
   check_patch.py      Preflight for one-file update patches (no changes applied)
 docs/
-  PRD.md            Specification — authoritative requirements
+  PRD.md            Specification: authoritative requirements
   checkpoint.md     Legacy pointer to ../CHECKPOINTS.md
   INPUT_GUIDE.md    Approved physical controls and evidence limits
   ASSET_FEASIBILITY.md Source asset audit, not final ROM utilization
@@ -194,8 +252,14 @@ it exits with an explicit message otherwise. As of now `src/` is still empty.
 
 ## Building
 
-Requires Vivado 2026.1 with the Artix-7 device family installed.
-Run from the repo root, placing Vivado's working files under `.tmp/build/`:
+The production RTL and XDC are not present yet, so the game build is not
+currently runnable. The script stops with an explicit missing-source message;
+the commands under [Checking notes and tooling](#checking-notes-and-tooling)
+can be run now without Vivado.
+
+Once production sources exist, the game build requires Vivado 2026.1 with
+the Artix-7 device family installed. Run from the repo root, placing Vivado's
+working files under `.tmp/build/`:
 
 ```powershell
 $repo = (Get-Location).Path
@@ -247,8 +311,10 @@ python -B -m unittest discover -s tools/tests -v
 ```
 
 The first command checks selected active-note invariants and local-only
-boundaries, including the Git index. The suite tests patch preflight and the
-retained legacy SVG generator, not the draw.io export or VHDL game.
+boundaries, including the Git index. The public suite checks patch preflight,
+the retained legacy SVG generator, README links and the approved PNG's
+dimensions and hashes against its draw.io source manifest. It does not
+re-export or visually validate draw.io, and it does not simulate the VHDL game.
 Academic DOCX tests and raw-input diagnostic evidence are local-only; they
 are not expected to exist after cloning just the public repository.
 
@@ -261,11 +327,12 @@ evidence rules that apply to every claim made in this repository.
 
 Behavioural reference for game physics, enemy logic, and sprite sequencing is
 [nicklesimba/FPGA-Mario](https://github.com/nicklesimba/FPGA-Mario)
-(Nikhil Simha, Pranith Bottu) — an academic DE2/Quartus project using a NIOS II
-soft core. MarioKan is not a port: the original design's soft CPU, Qsys
-subsystem, USB host interface, and audio codec have no counterpart here. What
-is carried over is *behaviour* — jump curves, collision response, animation
-order — reimplemented as standalone hardware.
+(Nikhil Simha, Pranith Bottu), an academic DE2/Quartus project using a NIOS II
+soft core. MarioKan is not a direct port: the original soft CPU, Qsys, USB
+host interface and audio codec are not part of this target. Selected behavior
+is a reference for a new VHDL implementation, not code already adapted and
+verified on Basys 3. Attribution and Nintendo's character/artwork rights
+remain applicable.
 
 ## Licensing and attribution
 

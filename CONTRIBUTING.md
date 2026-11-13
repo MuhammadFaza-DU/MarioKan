@@ -54,7 +54,8 @@ Kalau belum dites: tulis "belum dites" + cara mengetesnya.
 
 ## Konvensi dokumen
 
-- Bahasa: Indonesia, istilah teknis tetap Inggris.
+- README utama: Inggris untuk pembaca publik; catatan kerja: Indonesia,
+  istilah teknis tetap Inggris. Catatan English yang sudah ada dipertahankan.
 - Komentar kode: Indonesia singkat. Identifier: English.
 - Tabel status memakai label `SIM` / `SYN` / `BOARD`.
 

@@ -1,0 +1,11 @@
+{
+  "source": "docs/diagram/arsitektur.drawio",
+  "source_sha256": "c1c43f130d9be6f1334d74d47cc885bd6fa61ba92ba441fe6c4574afc1acf18b",
+  "png": "docs/diagram/arsitektur.png",
+  "png_sha256": "5cc47969a51b2a81e5434d4c1c2c123cc7d21c9f7140d2c7e4975c9affae37e2",
+  "png_dimensions": [3456, 2283],
+  "renderer": "https://embed.diagrams.net, official JSON load/export protocol",
+  "export_date": "2026-11-12",
+  "publication_prepared_on": "2026-11-13",
+  "note": "Byte-identical copy of the approved draw.io PNG export; the master was not changed. This is a functional design, not a game screenshot or synthesized netlist."
+}
